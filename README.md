@@ -1,6 +1,6 @@
 # DrawMeMaybe
 
-**DrawMeMaybe** ist ein interaktives Projekt, das KI, Computer Vision und Robotik kombiniert.  
+**DrawMeMaybe** is an interactive project, that combines AI, Computer Vision and Robotic 
 Eine Kamera nimmt ein Foto einer Person auf, die Person gibt ihre Hobbys oder Interessen an, und ein Roboterarm zeichnet anschließend ein **personalisiertes Cartoon-Portrait** dieser Person auf Papier.
 
 ## 🧩 Funktionsweise
