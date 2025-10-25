@@ -1,0 +1,256 @@
+import streamlit as st
+
+st.set_page_config(
+    page_title="Rob Ross Chat",
+    page_icon="🎨",
+    layout="wide"
+)
+
+# ---------------------- GLOBAL CSS ----------------------
+st.markdown("""
+<style>
+/* Full gradient background */
+html, body, .stApp,
+body > div, body > div > div {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Poppins", sans-serif;
+    color: #000;
+    background-color: #f5e3c3;
+    background-image:
+        radial-gradient(circle at 20% 30%, #ff6f61 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, #00bcd4 0%, transparent 40%),
+        radial-gradient(circle at 30% 80%, #8bc34a 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, #ffeb3b 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, #e91e63 0%, transparent 40%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+/* Remove dark backgrounds */
+header[data-testid="stHeader"],
+footer,
+body > div:last-child,
+body > div[data-testid="stStatusWidget"],
+div[data-testid="stBottomBlockContainer"],
+div[data-testid="stChatInput"],
+div[class*="st-emotion-cache"][class*="e4man"],
+div[class*="st-emotion-cache"][class*="exaa2ht"],
+div[class*="st-emotion-cache"][class*="e196pkbe"],
+div[class*="st-emotion-cache"][class*="e1gk92lc"],
+div[class*="st-emotion-cache"][class*="ex0cdmw"] {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Layout */
+.stApp {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.block-container {
+    flex: 1;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 2rem 0.5rem 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scrollable chat area */
+.chat-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    z-index: 1;
+}
+
+/* Title */
+h1 {
+    text-align: center;
+    color: #000;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+/* Chat bubbles */
+.chat-bubble {
+    display: flex;
+    align-items: flex-start;
+    margin: 0.75rem 0;
+    width: 100%;
+}
+
+.bubble {
+    max-width: 80%;
+    padding: 0.9rem 1.2rem;
+    border-radius: 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #000;
+    background-color: rgba(255,255,255,0.9);
+}
+
+.chat-left {
+    justify-content: flex-start;
+}
+.chat-left .bubble {
+    background-color: #E3F7F7;
+    border: 1px solid #80C6C6;
+    margin-left: 0.75rem;
+}
+.chat-left .avatar {
+    order: -1;
+    margin-right: 0.5rem;
+}
+
+.chat-right {
+    justify-content: flex-end;
+}
+.chat-right .bubble {
+    background-color: #FFF3E0;
+    border: 1px solid #FFC470;
+    margin-right: 0.75rem;
+}
+.chat-right .avatar {
+    order: 2;
+    margin-left: 0.5rem;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+/* Input container */
+.stChatInputContainer {
+    padding: 0.5rem 0;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+}
+
+/* Frosted input wrapper */
+div[data-testid="stChatInput"] {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 24px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Text input field: compact, oval, transparent, blurry, orange-framed, black text */
+div[data-baseweb="input"] {
+    width: 200px !important;
+    height: 40px !important;
+    margin: 0 auto !important;
+    padding: 0.4rem 0.8rem !important;
+    border: 2px solid #FFA500 !important;
+    border-radius: 999px !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+}
+
+/* Input text styling */
+div[data-baseweb="input"] input {
+    color: #000 !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    width: 100%;
+}
+
+/* Send button */
+button[data-testid="stChatInputSubmitButton"] {
+    background-color: #FFA500 !important;
+    border: none !important;
+    border-radius: 50%;
+    padding: 0.4rem;
+    color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ---------------------- ICONS ----------------------
+USER_ICON = "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+AI_ICON = "https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
+
+
+
+# ---------------------- HEADER ----------------------
+st.title("🎨 Rob Ross — Chat")
+
+# ---------------------- CHAT STATE ----------------------
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# ---------------------- CHAT DISPLAY ----------------------
+st.markdown('<div class="chat-scroll">', unsafe_allow_html=True)
+for msg in st.session_state.messages:
+    if msg["role"] == "assistant":
+        st.markdown(f"""
+        <div class="chat-bubble chat-left">
+            <img src="{AI_ICON}" class="avatar">
+            <div class="bubble">{msg["content"]}</div>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown(f"""
+        <div class="chat-bubble chat-right">
+            <div class="bubble">{msg["content"]}</div>
+            <img src="{USER_ICON}" class="avatar">
+        </div>
+        """, unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
+
+# ---------------------- USER INPUT ----------------------
+prompt = st.chat_input("Tell me about your hobbies or interests...")
+
+if prompt:
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    st.markdown(f"""
+        <div class="chat-bubble chat-right">
+            <div class="bubble">{prompt}</div>
+            <img src="{USER_ICON}" class="avatar">
+        </div>
+    """, unsafe_allow_html=True)
+
+    emoji_map = {
+        "art": "🎨", "music": "🎵", "gardening": "🌱",
+        "gaming": "🎮", "coding": "💻", "reading": "📚",
+        "travel": "✈️", "sports": "⚽", "cooking": "🍳"
+    }
+
+    keyword = prompt.lower().strip()
+    emoji = emoji_map.get(keyword, "✨")
+    ai_response = f'Got it! You mentioned **"{keyword}"** — that sounds inspiring! {emoji}'
+
+    st.session_state.messages.append({"role": "assistant", "content": ai_response})
+
+    st.markdown(f"""
+        <div class="chat-bubble chat-left">
+            <img src="{AI_ICON}" class="avatar">
+            <div class="bubble">{ai_response}</div>
+        </div>
+    """, unsafe_allow_html=True)
