@@ -38,7 +38,6 @@ body > div[data-testid="stStatusWidget"],
 div[data-testid="stBottomBlockContainer"],
 div[data-testid="stChatInput"],
 div[class*="st-emotion-cache"][class*="e4man"],
-div[class*="st-emotion-cache"][class*="exaa2ht"],
 div[class*="st-emotion-cache"][class*="e196pkbe"],
 div[class*="st-emotion-cache"][class*="e1gk92lc"],
 div[class*="st-emotion-cache"][class*="ex0cdmw"] {
@@ -108,6 +107,7 @@ h1 {
 .chat-left .avatar {
     order: -1;
     margin-right: 0.5rem;
+    width="64" height="64"
 }
 
 .chat-right {
@@ -124,8 +124,8 @@ h1 {
 }
 
 .avatar {
-    width: 32px;
-    height: 32px;
+    width: 64px;
+    height: 64px;
     flex-shrink: 0;
 }
 
@@ -146,7 +146,7 @@ div[data-testid="stChatInput"] {
     border-radius: 24px;
     padding: 0.5rem 1rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    width: fit-content;
+    max-width: 300px !important;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -193,7 +193,7 @@ button[data-testid="stChatInputSubmitButton"] {
 
 # ---------------------- ICONS ----------------------
 USER_ICON = "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
-AI_ICON = "https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
+AI_ICON = "https://raw.githubusercontent.com/Cristina2000-hub/DrawMeMaybe/frontend/frontend/uploads/Designer%20(1).png"
 
 
 
@@ -210,7 +210,7 @@ for msg in st.session_state.messages:
     if msg["role"] == "assistant":
         st.markdown(f"""
         <div class="chat-bubble chat-left">
-            <img src="{AI_ICON}" class="avatar">
+            <img src="{AI_ICON}" class="avatar" >
             <div class="bubble">{msg["content"]}</div>
         </div>
         """, unsafe_allow_html=True)
@@ -244,7 +244,7 @@ if prompt:
 
     keyword = prompt.lower().strip()
     emoji = emoji_map.get(keyword, "✨")
-    ai_response = f'Got it! You mentioned **"{keyword}"** — that sounds inspiring! {emoji}'
+    ai_response = f'Got it! You mentioned **{keyword}** — that sounds inspiring! {emoji}'
 
     st.session_state.messages.append({"role": "assistant", "content": ai_response})
 
