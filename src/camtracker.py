@@ -8,7 +8,7 @@ import os
 base_dir = os.path.dirname(__file__)
 img_path = os.path.join(base_dir, "assets", "malaysian_guy.jpg")
 predictor_path = os.path.join(base_dir, "assets", "shape_predictor_68_face_landmarks.dat")
-output_path = os.path.join(base_dir, "assets", "penis.png")
+output_path = os.path.join(base_dir, "assets", "gezeichnetes_schwarz.png")
 
 # Bild laden und prüfen
 img = cv2.imread(img_path)
