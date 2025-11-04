@@ -239,5 +239,37 @@ button[data-testid="stChatInputSubmitButton"] {
     color: #ffffff !important;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+
+/* Make all buttons transparent with white border/text */
+button[kind="secondary"], button, .stButton button {
+    background: transparent !important;
+    color: #000 !important;               /* change to white if needed */
+    border: 2px solid #000 !important;     /* optional outline */
+    box-shadow: none !important;
+    transition: all 0.2s ease-in-out;
+}
+
+/* When hovering or pressing, keep transparency */
+button[kind="secondary"]:hover,
+button:hover,
+.stButton button:hover {
+    background: rgba(0,0,0,0.05) !important; /* subtle tint */
+    color: #000 !important;
+    border-color: #000 !important;
+}
+
+button:active, .stButton button:active {
+    background: rgba(0,0,0,0.1) !important;
+    transform: scale(0.97);
+}
+
+/* Remove Streamlit default blue highlight ring */
+.stButton > button:focus, 
+button:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+             
+
 </style>
     """, unsafe_allow_html=True)
