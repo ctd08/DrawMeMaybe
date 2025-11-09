@@ -1,37 +1,161 @@
+# ui_consent.py
+import uuid
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import streamlit as st
+# from tinydb import TinyDB  # <- enable when ready
+# db = TinyDB("consent_db.json")
+
+TZ = ZoneInfo("Europe/Berlin")
+
+CONSENT_TEXT_MD = r"""
+### 1. Purpose of Participation
+As part of a university project, your photo and a short personal input (e.g., a hobby or interest) will be used to create a personalized **caricature-style image**.  
+The final drawing will be produced by a robotic arm.
+
+### 2. Data Collected
+- A photo of your face (captured during participation)  
+- A hobby or interest you provide in text form  
+
+No contact details or sensitive personal data are collected unless you provide them voluntarily.
+
+### 3. Use of AI Systems and External Services
+To generate the final caricature, the project may use:
+- a text processing service to help transform your written input into a creative prompt, and  
+- an image stylization service that converts your photo into a caricature-style image.
+
+Your photo is only sent to services that are necessary for creating the caricature image.  
+No personal identifiers (such as your full name or contact details) are included with the image or prompt.
+
+### 4. Data Storage and Deletion
+- Your photo and the generated caricature are used only for processing and drawing.  
+- They are not stored permanently in any database or system.  
+- Temporary files created during processing are deleted after the drawing is completed.  
+- An anonymized record of your consent decision may be kept for documentation.
+
+### 5. Access to Data
+Access is limited to members of the project team.  
+No data is shared with parties other than the AI services necessary for processing as described above.
+
+### 6. Voluntary Participation and Right to Withdraw
+Participation is voluntary.  
+You may withdraw your consent at any time. If you withdraw, your data will be deleted and no caricature will be produced.  
+Non-participation will not result in any disadvantage.
+
+### 7. Contact
+**Project:** DrawMeMaybe  
+**Email:** <span class="no-link">fi-ws25-drawmemaybe@hs-augsburg.de</span>
+
+### 8. Confirmation of Consent
+By selecting **Accept**, you confirm that you have read and understood the above and agree to the processing of your data as described.
+"""
+
+def _ensure_session_bootstrap():
+    if "session_id" not in st.session_state:
+        st.session_state.session_id = str(uuid.uuid4())
+    if "session_start" not in st.session_state:
+        st.session_state.session_start = datetime.now(TZ).isoformat()
+    if "route" not in st.session_state:
+        st.session_state.route = "consent"
+
+def _now_iso():
+    return datetime.now(TZ).isoformat()
+
+def _save_consent_to_db(payload: dict):
+    # db.insert(payload)  # <- enable when ready
+    pass
 
 def show_consent_form():
-    # small fade-in animation for the consent container
+    _ensure_session_bootstrap()
+
     st.markdown("""
     <style>
-      .consent-enter {
-        animation: fadeInUp .35s ease both;
-      }
+      /* --- layout + animation --- */
+      .consent-enter { animation: fadeInUp .3s ease both; }
       @keyframes fadeInUp {
-        0% { opacity: 0; transform: translateY(8px); }
-        100% { opacity: 1; transform: translateY(0); }
+          0% {opacity:0; transform: translateY(8px);}
+          100% {opacity:1; transform: translateY(0);}
+      }
+      .consent-box {
+          max-height: 45vh;
+          overflow: auto;
+          padding: 0;
+          border: none;
+          background: transparent;
+      }
+
+      /* --- Fix 'Press Enter to apply' text color --- */
+      /* Works across Streamlit versions */
+      [data-testid="stTextInput"] p {
+          color: black !important;
+      }
+
+      /* --- Prevent email link from being blue / clickable --- */
+      .no-link {
+          color: inherit !important;
+          text-decoration: none !important;
+          pointer-events: none !important;
+      }
+      .no-link a, .no-link a:link, .no-link a:visited {
+          color: inherit !important;
+          text-decoration: none !important;
+          pointer-events: none !important;
       }
     </style>
     """, unsafe_allow_html=True)
 
     st.markdown('<div class="consent-enter">', unsafe_allow_html=True)
+    st.title("🧾 Consent to the Processing of Image and Personal Input for AI-Based Caricature Generation")
 
-    st.title("🧾 Consent Form")
-    st.write(
-        "Bitte bestätige, dass dein Foto und Text **ausschließlich** zur Erstellung "
-        "einer personalisierten Zeichnung mit KI verarbeitet werden."
-    )
-    ok = st.checkbox("Ich stimme der Datenverarbeitung zu.")
-
-    col1, col2 = st.columns([1,1])
-    with col1:
-        if ok and st.button("Akzeptieren & Fortfahren ✅", use_container_width=True):
-            st.session_state.consent_accepted = True
-            st.rerun()
-    with col2:
-        st.button("Abbrechen ❌", use_container_width=True)
-
+    # --- main consent text ---
+    st.markdown('<div class="consent-box">', unsafe_allow_html=True)
+    st.markdown(CONSENT_TEXT_MD, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # stop rendering the next stages until accepted
+    # --- name field below text, label hidden ---
+    name = st.text_input(
+        "Your name",
+        placeholder="Enter your name",
+        label_visibility="collapsed"
+    )
+
+    col1, col2 = st.columns(2)
+    with col1:
+        accept = st.button("Accept ✅", use_container_width=True)
+    with col2:
+        decline = st.button("Decline ❌", use_container_width=True)
+
+    if accept:
+        if not name.strip():
+            st.warning("Please enter your name to continue.")
+            st.stop()
+
+        decision_time = _now_iso()
+        payload = {
+            "session_id": st.session_state.session_id,
+            "session_start": st.session_state.session_start,
+            "name": name.strip(),
+            "decision": "accepted",
+            "decision_timestamp": decision_time,
+        }
+        _save_consent_to_db(payload)
+
+        st.session_state.consent_accepted = True
+        st.session_state.route = "camera"
+        st.rerun()
+
+    if decline:
+        decision_time = _now_iso()
+        payload = {
+            "session_id": st.session_state.session_id,
+            "session_start": st.session_state.session_start,
+            "name": name.strip(),
+            "decision": "declined",
+            "decision_timestamp": decision_time,
+        }
+        _save_consent_to_db(payload)
+
+        st.error("You declined consent. The app will not proceed.")
+        st.stop()
+
     st.stop()
