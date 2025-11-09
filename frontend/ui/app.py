@@ -7,7 +7,7 @@ from utils.styles import inject_global_css
 
 st.set_page_config(page_title="Rob Ross Chat", page_icon="🎨", layout="wide")
 
-# 👉 inject your (unchanged) CSS once
+# inject your (unchanged) CSS once
 inject_global_css()
 
 # --- read ?touched=1 from URL and update state ---
@@ -27,7 +27,7 @@ except Exception:
         st.rerun()
 
 
-# 👉 initialize state used for flow control
+# initialize state used for flow control
 if "touched" not in st.session_state:
     # set to True to skip screensaver while developing
     st.session_state.touched = False
@@ -37,12 +37,17 @@ if "consent_accepted" not in st.session_state:
 if "photo_captured" not in st.session_state:     # ⬅️ NEW
     st.session_state.photo_captured = False
 
-# 👉 flow
+# flow
 if not st.session_state.touched:
     show_screensaver()
 elif not st.session_state.consent_accepted:
     show_consent_form()
 elif not st.session_state.photo_captured:        # ⬅️ NEW stage
     show_camera_stage()
+elif not st.session_state.photo_captured:
+    show_camera_stage()
+# optional: if you ever set st.session_state.route = "chat"
+elif st.session_state.get("route") == "chat":
+    show_chat_ui()
 else:
     show_chat_ui()
