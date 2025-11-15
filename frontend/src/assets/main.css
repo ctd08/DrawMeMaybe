@@ -150,3 +150,8 @@ body {
   text-decoration: none !important;
   pointer-events: none !important;
 }
+
+.btn-pill {
+  border-radius: 999px !important;
+}
+

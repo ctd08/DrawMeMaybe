@@ -3,7 +3,8 @@
     <div class="app-card">
       <!-- Title -->
       <h1 class="app-card-title mb-1">
-        🧾 Consent to the Processing of Image and Personal Input
+        <i class="bi bi-file-earmark-text me-2"></i>
+        Consent to the Processing of Image and Personal Input
       </h1>
       <p class="app-card-subtitle">
         Please read the following information carefully before continuing.
@@ -126,6 +127,7 @@
             class="btn btn-dark btn-pill"
             @click="onAccept"
           >
+            <i class="bi bi-check-circle me-1"></i>
             Accept ✅
           </button>
         </div>

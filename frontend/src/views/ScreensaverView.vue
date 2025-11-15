@@ -1,14 +1,13 @@
 <template>
-  <!-- Click anywhere on this wrapper to go to consent -->
   <div class="screensaver" @click="goToConsent">
-    <img
-      class="logo"
-      :src="logoSrc"
-      alt="logo"
-    />
-    <div class="hint">👆 Tap anywhere to start</div>
+    <img class="logo" :src="logoSrc" alt="logo" />
+    <div class="hint">
+      <i class="bi bi-brush me-2"></i>
+      Tap anywhere to start
+    </div>
   </div>
 </template>
+
 
 <script setup>
 import { useRouter } from "vue-router";
