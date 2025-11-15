@@ -1,33 +1,45 @@
-# DrawMeMaybe
+# DrawMeMaybe – Web Application
 
-DrawMeMaybe is an interactive project that combines AI, computer vision, and robotics.
-A camera takes a photo of a person, the person provides their hobbies or interests, and a robotic arm then draws a personalized cartoon portrait of that person on paper.
+This branch contains the rewritten version of the DrawMeMaybe app using a proper Frontend/Backend architecture, replacing the previous Streamlit-only prototype.
 
-🧩 How It Works
+The application is a touch-friendly kiosk experience where a user:
 
-1. Input
+- Views a screensaver
+- Accepts the consent form
+- Aligns their face inside a contour
+- Captures a photo
+- Inputs a hobby or interest
+- Receives a generated caption for their caricature
 
-📸 Camera captures a photo of the person
+🖥️ Frontend Setup
 
-✍️ User enters keywords describing hobbies/interests (e.g., “soccer, music, books”)
+Go into the frontend folder:
+  cd frontend
 
-2. Processing
+Install dependencies:
+npm install
 
-🧠 Face Analysis: Detect facial landmarks, shapes, and features
 
-💬 Interest Analysis: Analyze text input to select fitting visual elements
+Run the development server:
+npm run dev
 
-🎨 Cartoonization: Generate a cartoon-style image using AI
 
-3. Robotic Drawing
+You will see output similar to:
+➜  Local:   http://localhost:5173/
 
-✏️ Convert the final cartoon image into vector paths (SVG)
+Open that link in a browser.
 
-🤖 The robotic arm draws the portrait with a pen on paper
 
-👥 Team
-Name	Role	Responsibilities
-👩‍💻 Cristina	AI/Frontend	Cartoonization AI, minimal Streamlit UI, hobby integration
-👩‍💻 Muhammet	Image Preprocessing / OpenCV	Face detection, cropping, resizing, normalization, prepare clean image for AI module
-ALL	Integration / ROS	Connect modules (preprocessed image → AI → SVG → robot), implement ROS nodes/topics if needed, test full end-to-end pipeline
-ALL	Integration / ROS	Connect modules (preprocessed image → AI → SVG → robot), implement ROS nodes/topics if needed, test full end-to-end pipeline
+📱 Test on a tablet / phone
+
+Run Vite with host enabled:
+npm run dev -- --host
+
+
+Find your computer’s local IP (example: 192.168.1.20)
+
+On the tablet browser:
+http://192.168.1.20:5173/
+
+
+⚠️ Camera access requires HTTPS on mobile Safari. For development, localhost works without HTTPS, but LAN IPs may trigger permission issues on iOS. Chrome on Android has fewer restrictions.
