@@ -14,3 +14,4 @@ db.json
 LoRAs/
 .vscode/
 __pycache__/
+venv/
