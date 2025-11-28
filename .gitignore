@@ -19,3 +19,4 @@ get-pip.py
 ve.venv/
 venv/
 __pycache__/
+.venv
