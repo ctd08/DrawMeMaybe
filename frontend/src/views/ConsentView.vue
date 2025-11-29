@@ -171,10 +171,6 @@ function validate() {
   return true;
 }
 
-function onDecline() {
-  router.push("/");
-}
-
 async function onAccept() {
   // Wenn Checkbox nicht gesetzt oder Name leer → abbrechen
   if (!validate()) return;
@@ -189,7 +185,7 @@ async function onAccept() {
 
 //if the user declines it gets cleared
 function onDecline() {
-  sessionStorage.removeItem("drawnenayve_consent_accepted");
+  sessionStorage.removeItem("drawmemaybe_consent_accepted");
   router.push("/");
 }
 </script>
