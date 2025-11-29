@@ -2,7 +2,7 @@ from tinydb import TinyDB, Query
 from datetime import datetime
 import uuid
 
-db = TinyDB("db.json")
+db = TinyDB(r"C:\Users\tutun\drawmemaybe\DrawMeMaybe\backend\tinydb\db.json")
 sessions_table = db.table("sessions")
 consents_table = db.table("consents")
 
