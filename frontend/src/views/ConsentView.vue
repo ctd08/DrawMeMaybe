@@ -145,7 +145,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import Card from "primevue/card";
 import Button from "primevue/button";
@@ -153,6 +153,12 @@ import InputText from "primevue/inputtext";
 import Checkbox from "primevue/checkbox";
 
 const router = useRouter();
+const API_BASE = "http://127.0.0.1:8000";
+
+// frontend keys stay as you had them
+const CONSENT_KEY = "drawmemaybe_consent_accepted";
+const NAME_KEY = "drawmemaybe_name";
+const SESSION_KEY = "drawmemaybe_session_id";
 
 const name = ref("");
 const errorMessage = ref("");
@@ -171,26 +177,76 @@ function validate() {
   return true;
 }
 
+// create or reuse session_id from backend
+async function ensureSession() {
+  let sessionId = sessionStorage.getItem(SESSION_KEY);
+
+  if (!sessionId) {
+    const res = await fetch(`${API_BASE}/session`, {
+      method: "POST",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to create session");
+    }
+
+    const data = await res.json();
+    sessionId = data.session_id;
+    sessionStorage.setItem(SESSION_KEY, sessionId);
+  }
+
+  return sessionId;
+}
+
+// optional: pre-create a session when the consent screen loads
+onMounted(() => {
+  ensureSession().catch((err) => {
+    console.error("Error creating session:", err);
+    // don't block UI, just log; user can still try again on Accept
+  });
+});
+
 async function onAccept() {
   // Wenn Checkbox nicht gesetzt oder Name leer → abbrechen
   if (!validate()) return;
 
   const trimmedName = name.value.trim();
 
-  // saves consent flag in browser storage (fixed key)
-  sessionStorage.setItem("drawmemaybe_consent_accepted", "true");
-  sessionStorage.setItem("drawmemaybe_name", trimmedName);
+  try {
+    const sessionId = await ensureSession();
 
-  localStorage.setItem("drawmemaybe_consent_accepted", "true");
-  localStorage.setItem("drawmemaybe_name", trimmedName);
+    // send consent to FastAPI backend
+    await fetch(`${API_BASE}/consent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        session_id: sessionId,
+        consent_given: true,
+        name: trimmedName,
+      }),
+    });
 
-  // TODO: backend call später
-  router.push("/camera");
+    // saves consent flag in browser storage (fixed key)
+    sessionStorage.setItem(CONSENT_KEY, "true");
+    sessionStorage.setItem(NAME_KEY, trimmedName);
+
+    localStorage.setItem(CONSENT_KEY, "true");
+    localStorage.setItem(NAME_KEY, trimmedName);
+
+    router.push("/camera");
+  } catch (err) {
+    console.error("Error sending consent:", err);
+    errorMessage.value =
+      "There was a problem contacting the backend. Please try again.";
+  }
 }
 
 //if the user declines it gets cleared
 function onDecline() {
-  sessionStorage.removeItem("drawmemaybe_consent_accepted");
+  sessionStorage.removeItem(CONSENT_KEY);
+  sessionStorage.removeItem(NAME_KEY);
+  // optional: we leave the session id as-is, but you could also:
+  // sessionStorage.removeItem(SESSION_KEY);
   router.push("/");
 }
 </script>
