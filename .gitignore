@@ -20,3 +20,4 @@ ve.venv/
 venv/
 __pycache__/
 .venv
+node_modules/
