@@ -24,6 +24,7 @@ app.add_middleware(
 class ConsentPayload(BaseModel):
     session_id: str
     consent_given: bool
+    name: str | None = None
 
 
 @app.get("/health")
@@ -42,5 +43,6 @@ def consent_endpoint(payload: ConsentPayload):
     save_consent(
         session_id=payload.session_id,
         consent_given=payload.consent_given,
+        name=payload.name,
     )
     return {"ok": True}

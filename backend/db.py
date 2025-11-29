@@ -23,14 +23,16 @@ def create_session() -> str:
     return session_id
 
 
-def save_consent(session_id: str, consent_given: bool):
-    consents_table.insert(
-        {
-            "session_id": session_id,
-            "consent_given": consent_given,
-            "timestamp": now_iso(),
-        }
-    )
+def save_consent(session_id: str, consent_given: bool, name: str | None = None):
+    entry = {
+        "session_id": session_id,
+        "consent_given": consent_given,
+        "timestamp": now_iso(),
+    }
+    if name is not None:
+        entry["name"] = name
+
+    consents_table.insert(entry)
 
 
 def get_session(session_id: str):
