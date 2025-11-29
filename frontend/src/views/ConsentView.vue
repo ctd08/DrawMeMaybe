@@ -175,10 +175,15 @@ async function onAccept() {
   // Wenn Checkbox nicht gesetzt oder Name leer → abbrechen
   if (!validate()) return;
 
-  //saves consent flag in browser storage
-  sessionStorage.setItem("drawnenayve_consent_accepted", "true");
-
   const trimmedName = name.value.trim();
+
+  // saves consent flag in browser storage (fixed key)
+  sessionStorage.setItem("drawmemaybe_consent_accepted", "true");
+  sessionStorage.setItem("drawmemaybe_name", trimmedName);
+
+  localStorage.setItem("drawmemaybe_consent_accepted", "true");
+  localStorage.setItem("drawmemaybe_name", trimmedName);
+
   // TODO: backend call später
   router.push("/camera");
 }
@@ -247,8 +252,10 @@ function onDecline() {
   color: #111111 !important;
 }
 
-/* Sicherheitshalber spezifischer auf PrimeVue Input */
-.name-input.p-inputtext {
+/* Sicherheitshalber spezifischer auf PrimeVue Input + Focus/Hover */
+.name-input.p-inputtext,
+.name-input.p-inputtext:enabled:hover,
+.name-input.p-inputtext:enabled:focus {
   background: #ffffff !important;
   color: #111111 !important;
 }
