@@ -2,7 +2,8 @@ node_modules/
 __pycache__/
 .env
 .DS_Store
-dist/.vscode/
+dist/.
+vscode/
 pycache/
 *.pyc
 __pycache__/
