@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_controllers
+CMAKE_SOURCE_DIR = /home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_controllers
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_controllers
+CMAKE_BINARY_DIR = /home/ros2/DrawMeMaybe/ros2_ws/build/ur_controllers
 
 # Utility rule file for uninstall.
 
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_controllers && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_controllers /home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_controllers /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_controllers /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_controllers /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_controllers/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ros2/DrawMeMaybe/ros2_ws/build/ur_controllers && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_controllers /home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_controllers /home/ros2/DrawMeMaybe/ros2_ws/build/ur_controllers /home/ros2/DrawMeMaybe/ros2_ws/build/ur_controllers /home/ros2/DrawMeMaybe/ros2_ws/build/ur_controllers/CMakeFiles/uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/uninstall.dir/depend
 

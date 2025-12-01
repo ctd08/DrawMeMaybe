@@ -1,1 +1,4 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_dashboard_msgs/srv/RawRequest.srv
+# This service is there to support any dashboard query not explicitly supported
+string query
+---
+string answer

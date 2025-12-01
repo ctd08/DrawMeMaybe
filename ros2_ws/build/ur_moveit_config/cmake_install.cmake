@@ -1,8 +1,8 @@
-# Install script for directory: /home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_moveit_config
+# Install script for directory: /home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_moveit_config
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/rosrunner/DrawMeMaybe/ros2_ws/install/ur_moveit_config")
+  set(CMAKE_INSTALL_PREFIX "/home/ros2/DrawMeMaybe/ros2_ws/install/ur_moveit_config")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -43,23 +43,107 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config" TYPE DIRECTORY FILES
+    "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_moveit_config/config"
+    "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_moveit_config/launch"
+    "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_moveit_config/rviz"
+    "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_moveit_config/srdf"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config/environment" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/pythonpath.sh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config/environment" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/pythonpath.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/ur_moveit_config-2.10.0-py3.10.egg-info" TYPE DIRECTORY FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_python/ur_moveit_config/ur_moveit_config.egg-info/")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/ur_moveit_config" TYPE DIRECTORY FILES "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_moveit_config/ur_moveit_config/" REGEX "/[^/]*\\.pyc$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   execute_process(
         COMMAND
         "/usr/bin/python3" "-m" "compileall"
-        "/home/rosrunner/DrawMeMaybe/ros2_ws/install/ur_moveit_config/local/lib/python3.10/dist-packages/ur_moveit_config"
+        "/home/ros2/DrawMeMaybe/ros2_ws/install/ur_moveit_config/local/lib/python3.10/dist-packages/ur_moveit_config"
       )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_moveit_config/ur_moveit_config/launch_common.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   execute_process(
         COMMAND
         "/usr/bin/python3" "-m" "compileall"
-        "/home/rosrunner/DrawMeMaybe/ros2_ws/install/ur_moveit_config/local/lib/python3.10/dist-packages/launch_common.py"
+        "/home/ros2/DrawMeMaybe/ros2_ws/install/ur_moveit_config/local/lib/python3.10/dist-packages/launch_common.py"
       )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/ur_moveit_config")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/ur_moveit_config")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config/environment" TYPE FILE FILES "/home/ros2/ros2_humble/install/ament_cmake_core/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config/environment" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/ament_prefix_path.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config/environment" TYPE FILE FILES "/home/ros2/ros2_humble/install/ament_cmake_core/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config/environment" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/path.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/local_setup.bash")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/local_setup.sh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/local_setup.zsh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/local_setup.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_environment_hooks/package.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_index/share/ament_index/resource_index/packages/ur_moveit_config")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config/cmake" TYPE FILE FILES
+    "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_core/ur_moveit_configConfig.cmake"
+    "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_core/ur_moveit_configConfig-version.cmake"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_moveit_config" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_moveit_config/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -70,5 +154,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_moveit_config/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_moveit_config/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

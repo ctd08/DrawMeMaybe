@@ -1,1 +1,1 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_moveit_config/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/ur_moveit_config
+launch;launch_ros;moveit_kinematics;moveit_planners_ompl;moveit_ros_move_group;moveit_ros_visualization;moveit_servo;moveit_simple_controller_manager;rviz2;ur_description;urdf;warehouse_ros_sqlite;xacro

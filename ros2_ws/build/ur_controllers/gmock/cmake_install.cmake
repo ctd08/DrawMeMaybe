@@ -1,8 +1,8 @@
-# Install script for directory: /opt/ros/humble/src/gmock_vendor
+# Install script for directory: /home/ros2/ros2_humble/install/gmock_vendor/src/gmock_vendor
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/rosrunner/DrawMeMaybe/ros2_ws/install/ur_controllers")
+  set(CMAKE_INSTALL_PREFIX "/home/ros2/DrawMeMaybe/ros2_ws/install/ur_controllers")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()

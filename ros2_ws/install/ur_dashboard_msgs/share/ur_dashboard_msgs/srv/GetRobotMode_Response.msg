@@ -1,1 +1,4 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/rosidl_cmake/srv/GetRobotMode_Response.msg
+
+RobotMode robot_mode
+string answer
+bool success

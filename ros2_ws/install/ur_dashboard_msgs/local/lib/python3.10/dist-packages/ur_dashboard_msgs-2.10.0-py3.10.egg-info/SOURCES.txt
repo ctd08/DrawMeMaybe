@@ -1,1 +1,6 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/ament_cmake_python/ur_dashboard_msgs/ur_dashboard_msgs.egg-info/SOURCES.txt
+setup.py
+ur_dashboard_msgs/__init__.py
+ur_dashboard_msgs.egg-info/PKG-INFO
+ur_dashboard_msgs.egg-info/SOURCES.txt
+ur_dashboard_msgs.egg-info/dependency_links.txt
+ur_dashboard_msgs.egg-info/top_level.txt

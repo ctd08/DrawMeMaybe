@@ -1,8 +1,8 @@
-# Install script for directory: /home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_bringup
+# Install script for directory: /home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_bringup
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/rosrunner/DrawMeMaybe/ros2_ws/install/ur_bringup")
+  set(CMAKE_INSTALL_PREFIX "/home/ros2/DrawMeMaybe/ros2_ws/install/ur_bringup")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -44,72 +44,72 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE DIRECTORY FILES
-    "/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_bringup/config"
-    "/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_bringup/launch"
+    "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_bringup/config"
+    "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_bringup/launch"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/ur_bringup" TYPE PROGRAM FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_bringup/scripts/start_ursim.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/ur_bringup" TYPE PROGRAM FILES "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_bringup/scripts/start_ursim.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/ur_bringup")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/ur_bringup")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/ur_bringup")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/ur_bringup")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/environment" TYPE FILE FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/environment" TYPE FILE FILES "/home/ros2/ros2_humble/install/ament_cmake_core/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/environment" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/ament_prefix_path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/environment" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/ament_prefix_path.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/environment" TYPE FILE FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/environment" TYPE FILE FILES "/home/ros2/ros2_humble/install/ament_cmake_core/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/environment" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/environment" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/path.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/local_setup.bash")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/local_setup.bash")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/local_setup.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/local_setup.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/local_setup.zsh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/local_setup.zsh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/local_setup.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/local_setup.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/package.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_environment_hooks/package.dsv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_index/share/ament_index/resource_index/packages/ur_bringup")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_index/share/ament_index/resource_index/packages/ur_bringup")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup/cmake" TYPE FILE FILES
-    "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_core/ur_bringupConfig.cmake"
-    "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_core/ur_bringupConfig-version.cmake"
+    "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_core/ur_bringupConfig.cmake"
+    "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/ament_cmake_core/ur_bringupConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_bringup/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ur_bringup" TYPE FILE FILES "/home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_bringup/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -120,5 +120,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_bringup/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ros2/DrawMeMaybe/ros2_ws/build/ur_bringup/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

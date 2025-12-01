@@ -1,1 +1,4 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_dashboard_msgs/srv/AddToLog.srv
+string message
+---
+string answer
+bool success

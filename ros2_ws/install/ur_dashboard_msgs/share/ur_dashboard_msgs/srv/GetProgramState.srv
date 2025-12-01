@@ -1,1 +1,5 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_dashboard_msgs/srv/GetProgramState.srv
+---
+ProgramState state
+string program_name
+string answer
+bool success
