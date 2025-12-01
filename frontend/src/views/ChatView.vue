@@ -101,7 +101,7 @@ const messages = ref([
 const userText = ref("");
 const errorMessage = ref("");
 const isThinking = ref(false);
-const hasUserSent = ref(false); // 🔹 User darf nur 1x senden
+const hasUserSent = ref(false); //  User darf nur 1x senden
 
 function validate() {
   if (!userText.value.trim()) {
