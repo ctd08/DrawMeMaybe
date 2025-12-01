@@ -1,1 +1,1 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/rosidl_cmake/srv/AddToLog_Request.msg
+string message

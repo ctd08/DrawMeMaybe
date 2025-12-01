@@ -1,1 +1,4 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_dashboard_msgs/srv/GetSafetyMode.srv
+---
+SafetyMode safety_mode
+string answer
+bool success

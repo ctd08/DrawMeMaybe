@@ -1,1 +1,4 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/rosidl_cmake/srv/IsProgramRunning_Response.msg
+
+string answer
+bool program_running # is a program running?
+bool success # Did the dashboard server call succeed?

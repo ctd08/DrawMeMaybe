@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_dashboard_msgs
+CMAKE_SOURCE_DIR = /home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_dashboard_msgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs
+CMAKE_BINARY_DIR = /home/ros2/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs
 
 # Utility rule file for ament_cmake_python_build_ur_dashboard_msgs_egg.
 
@@ -67,7 +67,7 @@ include CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/compiler_d
 include CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/progress.make
 
 CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg:
-	cd /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/ament_cmake_python/ur_dashboard_msgs && /usr/bin/python3 setup.py egg_info
+	cd /home/ros2/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/ament_cmake_python/ur_dashboard_msgs && /usr/bin/python3 setup.py egg_info
 
 ament_cmake_python_build_ur_dashboard_msgs_egg: CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg
 ament_cmake_python_build_ur_dashboard_msgs_egg: CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/clean:
 .PHONY : CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/clean
 
 CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/depend:
-	cd /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_dashboard_msgs /home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_dashboard_msgs /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs /home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ros2/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_dashboard_msgs /home/ros2/DrawMeMaybe/ros2_ws/src/src/Universal_Robots_ROS2_Driver/ur_dashboard_msgs /home/ros2/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs /home/ros2/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs /home/ros2/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ament_cmake_python_build_ur_dashboard_msgs_egg.dir/depend
 

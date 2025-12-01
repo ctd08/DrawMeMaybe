@@ -1,1 +1,4 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/src/ur_ros2_driver/ur_dashboard_msgs/srv/IsInRemoteControl.srv
+---
+string answer
+bool remote_control # is the robot in remote control?
+bool success # Did the dashboard server call succeed?

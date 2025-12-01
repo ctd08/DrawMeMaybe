@@ -1,1 +1,4 @@
-/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/rosidl_cmake/srv/GetLoadedProgram_Response.msg
+
+string answer
+string program_name
+bool success

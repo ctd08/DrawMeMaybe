@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = -DRCUTILS_ENABLE_FAULT_INJECTION -DROS_PACKAGE_NAME=\"ur_dashboard_msgs\" -Dur_dashboard_msgs__rosidl_generator_py_EXPORTS
 
-C_INCLUDES = -I/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/rosidl_generator_c -I/home/rosrunner/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/rosidl_generator_py -I/usr/include/python3.10 -isystem /opt/ros/humble/include/action_msgs -isystem /opt/ros/humble/include/builtin_interfaces -isystem /opt/ros/humble/include/rosidl_runtime_c -isystem /opt/ros/humble/include/rcutils -isystem /opt/ros/humble/include/rosidl_typesupport_interface -isystem /opt/ros/humble/include/unique_identifier_msgs
+C_INCLUDES = -I/home/ros2/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/rosidl_generator_c -I/home/ros2/DrawMeMaybe/ros2_ws/build/ur_dashboard_msgs/rosidl_generator_py -I/usr/include/python3.10 -isystem /home/ros2/ros2_humble/install/action_msgs/include/action_msgs -isystem /home/ros2/ros2_humble/install/builtin_interfaces/include/builtin_interfaces -isystem /home/ros2/ros2_humble/install/rosidl_runtime_c/include/rosidl_runtime_c -isystem /home/ros2/ros2_humble/install/rcutils/include/rcutils -isystem /home/ros2/ros2_humble/install/rosidl_typesupport_interface/include/rosidl_typesupport_interface -isystem /home/ros2/ros2_humble/install/unique_identifier_msgs/include/unique_identifier_msgs
 
-C_FLAGS = -fPIC -Wall -Wextra
+C_FLAGS = -O3 -DNDEBUG -fPIC -Wall -Wextra
 
