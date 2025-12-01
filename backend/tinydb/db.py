@@ -1,8 +1,17 @@
 from tinydb import TinyDB, Query
 from datetime import datetime
+from pathlib import Path
 import uuid
 
-db = TinyDB(r"C:\Users\tutun\drawmemaybe\DrawMeMaybe\backend\tinydb\db.json")
+#db = TinyDB(r"C:\Users\tutun\drawmemaybe\DrawMeMaybe\backend\tinydb\db.json")
+BASE_DIR = Path(__file__).resolve().parent    # backend/
+DB_DIR = BASE_DIR / "data"
+DB_DIR.mkdir(exist_ok=True)                  # ensure the folder exists
+
+DB_PATH = DB_DIR / "db.json"
+
+db = TinyDB(DB_PATH)
+
 sessions_table = db.table("sessions")
 consents_table = db.table("consents")
 
