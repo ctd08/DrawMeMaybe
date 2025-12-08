@@ -8,3 +8,5 @@ for libraries:
 >>
     pip install -r requirements.txt
 >>
+
+torch version: 2.9.1+cu128
