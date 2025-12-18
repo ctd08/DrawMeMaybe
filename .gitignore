@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ve.venv/
 venv/
 __pycache__/
@@ -9,9 +8,7 @@ __pycache__/
 venv/
 get-pip.py 
 LoRAs/
-=======
 .vscode/
 pycache/
 *.pyc
 __pycache__/
->>>>>>> origin/web_dev_js

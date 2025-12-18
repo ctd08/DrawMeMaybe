@@ -131,6 +131,11 @@ function buildAssistantResponse(raw) {
   );
 }
 
+const showConfurmation = ref(false);
+const agentResult = ref(null);
+const selectedHobby =ref("");
+const isConfirmed = ref(false);
+
 async function onSend() {
   if (!validate() || isThinking.value) return;
 
@@ -144,18 +149,99 @@ async function onSend() {
 
   userText.value = "";
   isThinking.value = true;
+  errorMessage.value = "";
 
   // fake small delay (later: call backend instead)
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  /*await new Promise((resolve) => setTimeout(resolve, 500));
 
   const reply = buildAssistantResponse(text);
 
   messages.value.push({
     role: "assistant",
     content: reply,
-  });
+  });*/
 
-  isThinking.value = false;
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: text }),
+    });
+    const data = await response.json();
+
+    if(data.success) {
+      agentResult.value = data;
+      const hobbies = data.hobbies.join(", ");
+
+      messages.value.push({
+        role: "assistant",
+        content: `I understood your hobbies as: <strong>${hobbies}</strong> — that sounds like great material for a caricature. Is this correct?`
+      });
+      showConfurmation.value = true;
+    }
+  } catch (error) {
+    errorMessage.value = "An error occurred while processing your request. Please try again.";
+  } finally {
+    isThinking.value = false;
+  }
+
+  //personalised hobby response after confirmation
+  async function confirmHobbies() {
+    showConfurmation.value = false;
+
+    //pick a random hobby from the list
+    const hobbies = agentResult.value.hobbies;
+    selectedHobby.value = hobbies[Math.floor(Math.random() * hobbies.length)];
+
+    const compliments = [
+      "That's awesome!",
+      "Great choice!",
+      "Sounds fun!",
+      "I love that hobby!",
+      "That's really interesting!"
+    ];
+
+    const compliment = compliments[Math.floor(Math.random() * compliments.length)];
+
+    //create personalised response
+    const scenes = {
+      climbing: "We'll portray you gripping a climbing rope and carabiners, chalk bag at your waist, harness ready for the next ascent!",
+      coding: "Picture you at a sleek coding setup with multiple glowing monitors, keyboard flying as you debug with intense focus!",
+      cooking: "You as a master chef in a professional apron, wielding oversized utensils over a steaming gourmet pot with perfect plating skills!",
+      
+      gaming: "Epic gamer with glowing RGB keyboard, headset mic down, locked in a high-stakes esports match!",
+      reading: "Bookworm surrounded by towering stacks of novels, glasses perched, deeply immersed in your latest literary adventure!",
+      music: "Rockstar musician shredding on an oversized guitar, stage lights blazing, crowd roaring in the background!",
+      travel: "Globe-trotting adventurer with massive backpack, world map tattoo, ready for the next exotic destination!",
+      sports: "Ultimate athlete mid-action - sweat flying, muscles flexed, dominating the field/court/track!",
+      art: "Visionary artist palette in hand, massive canvas before you, paint splattered creatively everywhere!",
+      gardening: "Green-thumb gardener with oversized trowel, surrounded by exotic plants, watering can poised dramatically!"
+        }
+
+    const scene = scenes[selectedHobby.value] || 'doing something awesome with $/selectedHoby.value}!';
+    messages.value.push({
+      role: "assistant",
+      content: `${compliment}<br>
+      We'll portray you as our <strong>${selectedHobby.value} expert</strong>.<br><br>
+       <strong>Scene:</strong> ${scene}<br>
+      <em>Generating your caricature now...</em>
+    `
+    });
+
+    isConfirmed.value = true;
+    await triggerCaricatureGeneration();
+  }
+
+  function declineHobbies() {
+  showConfirmation.value = false;
+  messages.value.push({
+    role: "assistant",
+    content: "No problem! Please tell me more about your hobbies or interests."
+  });
+}
+
 }
 </script>
 
@@ -271,6 +357,53 @@ async function onSend() {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* Confirmation buttons */
+.confirmation-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.confirm-btn {
+  flex: 1;
+  max-width: 220px;
+  border-radius: 12px !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  height: 48px !important;
+  transition: all 0.2s ease;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* PrimeVue severity overrides */
+.confirm-btn.p-button-success {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  border: none !important;
+}
+
+.confirm-btn.p-button-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  border: none !important;
+}
+
+.confirm-btn.p-button-success:hover {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+}
+
+.confirm-btn.p-button-danger:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
 }
 
 /* ✔ WHITE input field*/
