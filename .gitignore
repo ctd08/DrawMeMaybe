@@ -23,3 +23,7 @@ __pycache__/
 node_modules/
 
 LoRAs/
+.vscode/
+pycache/
+*.pyc
+__pycache__/
