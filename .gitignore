@@ -4,3 +4,9 @@ __pycache__/
 .venv
 node_modules/
 LoRAs/
+build/
+dist/
+*.pyc
+logs/
+*.log
+log/
