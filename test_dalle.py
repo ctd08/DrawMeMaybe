@@ -25,24 +25,29 @@ img.save(output_png_path, format="PNG")
 client = OpenAI(api_key="")
 
 prompt = (
-    "caricature of the person, exaggerated facial features, "
-    "add a small guitar in their hands naturally, "
-    "stylized, readable, simple drawing, "
-    "clean background"
+    "black and white line-art caricature of the person, "
+    "very exaggerated head and facial features, small body, "
+    "clearly visible small guitar in their hands, "
+    "simple white background, high contrast, no photo realism"
 )
 
 with open(output_png_path, "rb") as f:
     response = client.images.edit(
-        model="dall-e-2",
+        model="gpt-image-1",
         image=f,
         prompt=prompt,
-        size="512x512",
+        size="1024x1024",
     )
 
-image_url = response.data[0].url
-
-res = requests.get(image_url)
-img = Image.open(BytesIO(res.content))
-img.save(edited_path)
+if response.data and len(response.data) > 0:
+    image_url = response.data[0].url
+    if image_url:
+        res = requests.get(image_url)
+        img = Image.open(BytesIO(res.content))
+        img.save(edited_path)
+    else:
+        print("Error: No URL in image data")
+else:
+    print("Error: No image data in response")
 
 print(f"Fertig! Bild gespeichert unter: {edited_path}")
