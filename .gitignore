@@ -18,3 +18,4 @@ venv/
 get-pip.py 
 *.log
 build/
+start_backend.sh
