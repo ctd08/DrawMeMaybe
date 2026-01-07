@@ -16,4 +16,5 @@ coverage/
 .vscode/
 *.iml
 LoRAs/
+ros2_ws/build/
 
