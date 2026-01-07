@@ -5,6 +5,7 @@ from pathlib import Path
 import base64
 
 from .tinydb.db import create_session, save_consent, list_sessions, list_consents, complete_session
+from backend.ai_image.sd_pipeline.run_gemini_only import run_gemini_only
 
 app = FastAPI()
 
@@ -38,6 +39,9 @@ class ChatPayload(BaseModel):
 class PhotoPayload(BaseModel):
     session_id: str
     data_url: str
+
+class RunGeminiPayload(BaseModel):
+    session_id: str
 
 @app.get("/health")
 def health_check():
@@ -101,3 +105,8 @@ async def upload_photo(payload: PhotoPayload):
     img_path.write_bytes(img_bytes)
 
     return {"ok": True, "path": str(img_path)}
+
+@app.post("/run_gemini")
+async def run_gemini_endpoint(payload: RunGeminiPayload):
+    result = run_gemini_only(payload.session_id)
+    return {"ok": True, "path": str(result)}
