@@ -21,8 +21,13 @@ class UR5eMoveGroupNode(Node):
         # ActionClient zum MoveGroup ActionServer
         self._action_client = ActionClient(self, MoveGroup, '/move_group')
         self.get_logger().info("Warte auf MoveGroup ActionServer...")
+<<<<<<< HEAD
         #self._action_client.wait_for_server()
         #self.get_logger().info("MoveGroup ActionServer erreichbar")
+=======
+        self._action_client.wait_for_server()
+        self.get_logger().info("MoveGroup ActionServer erreichbar")
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 
         self.state = RobotState.INIT
         self.create_timer(1.0, self.state_machine_callback)
@@ -64,7 +69,11 @@ class UR5eMoveGroupNode(Node):
         #pose_goal.pose.orientation.w = 1.0
         
         self.get_logger().info(f"publishing: {msg}")
+<<<<<<< HEAD
         #self.publisher.publish(msg)
+=======
+        self.publisher.publish(msg)
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 
         # -------- Constraints --------
         pos_constraint = PositionConstraint()
@@ -110,9 +119,15 @@ class UR5eMoveGroupNode(Node):
         goal_msg.request.allowed_planning_time = 5.0
         goal_msg.request.max_velocity_scaling_factor = 0.5
         goal_msg.request.max_acceleration_scaling_factor = 0.5
+<<<<<<< HEAD
         #goal_msg.request.workspace_parameters = WorkspaceParameters()
         #goal_msg.planning.options.plan_only = False
         #goal_msg.planning.options.look_around = False
+=======
+        goal_msg.request.workspace_parameters = WorkspaceParameters()
+        goal_msg.planning.options.plan_only = False
+        goal_msg.planning.options.look_around = False
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 
         # -------- Goal senden --------
         self.get_logger().info("Sende Pose an MoveGroup...")

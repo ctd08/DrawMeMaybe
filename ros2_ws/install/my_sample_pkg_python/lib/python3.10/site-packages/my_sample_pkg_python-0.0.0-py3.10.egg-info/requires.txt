@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 math3d
 setuptools
 svgtools
+=======
+setuptools
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 
 [test]
 pytest

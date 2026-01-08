@@ -11,8 +11,11 @@ setup.py
 my_sample_pkg_python/__init__.py
 my_sample_pkg_python/haus_des_nikolaus.py
 my_sample_pkg_python/move_moveit.py
+<<<<<<< HEAD
 my_sample_pkg_python/move_moveit_svg1.py
 my_sample_pkg_python/move_moveit_svg2.py
+=======
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 my_sample_pkg_python/move_to_home.py
 my_sample_pkg_python/move_to_home_traj.py
 my_sample_pkg_python/spline_20cm.py

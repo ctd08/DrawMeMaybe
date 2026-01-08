@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 source;share/my_sample_pkg_cpp/local_setup.bash
 source;share/my_sample_pkg_cpp/local_setup.dsv
+=======
+source;share/my_sample_pkg_cpp/hook/cmake_prefix_path.ps1
+source;share/my_sample_pkg_cpp/hook/cmake_prefix_path.dsv
+source;share/my_sample_pkg_cpp/hook/cmake_prefix_path.sh
+source;share/my_sample_pkg_cpp/local_setup.bash
+source;share/my_sample_pkg_cpp/local_setup.dsv
+source;share/my_sample_pkg_cpp/local_setup.ps1
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 source;share/my_sample_pkg_cpp/local_setup.sh
 source;share/my_sample_pkg_cpp/local_setup.zsh

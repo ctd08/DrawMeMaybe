@@ -21,8 +21,13 @@ class UR5eMoveGroupNode(Node):
         # ActionClient zum MoveGroup ActionServer
         self._action_client = ActionClient(self, MoveGroup, '/move_group')
         self.get_logger().info("Warte auf MoveGroup ActionServer...")
+<<<<<<< HEAD
         #self._action_client.wait_for_server()
         #self.get_logger().info("MoveGroup ActionServer erreichbar")
+=======
+        self._action_client.wait_for_server()
+        self.get_logger().info("MoveGroup ActionServer erreichbar")
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 
         self.state = RobotState.INIT
         self.create_timer(1.0, self.state_machine_callback)
@@ -34,6 +39,7 @@ class UR5eMoveGroupNode(Node):
 
         elif self.state == RobotState.MOVE_HOME:
             self.get_logger().info("MOVE_HOME: Fahre zur Home-Position...")
+<<<<<<< HEAD
             pose_goal = PoseStamped()
             pose_goal.header.frame_id = "base_link"
             pose_goal.pose.position.x = 0.28
@@ -46,11 +52,15 @@ class UR5eMoveGroupNode(Node):
             
             self.send_pose_goal(pose_goal)
             
+=======
+            self.send_pose_goal()
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
             self.state = RobotState.DONE
 
         elif self.state == RobotState.DONE:
             self.get_logger().info("DONE: Home-Position erreicht.")
 
+<<<<<<< HEAD
     def send_pose_goal(self, msg:PoseStamped):
         # -------- Beispiel-Pose --------
         #pose_goal = PoseStamped()
@@ -95,17 +105,51 @@ class UR5eMoveGroupNode(Node):
         ori_constraint.absolute_x_axis_tolerance = 0.05
         ori_constraint.absolute_y_axis_tolerance = 0.05
         ori_constraint.absolute_z_axis_tolerance = 0.05
+=======
+    def send_pose_goal(self):
+        # -------- Beispiel-Pose --------
+        pose_goal = PoseStamped()
+        pose_goal.header.frame_id = "base_link"
+        pose_goal.pose.position.x = 0.28
+        pose_goal.pose.position.y = -0.2
+        pose_goal.pose.position.z = 0.5
+        pose_goal.pose.orientation.w = 1.0
+
+        # -------- Constraints --------
+        pos_constraint = PositionConstraint()
+        pos_constraint.header = pose_goal.header
+        pos_constraint.link_name = "tool0"
+
+        primitive = SolidPrimitive()
+        primitive.type = SolidPrimitive.SPHERE
+        primitive.dimensions = [0.001]  # sehr kleine Toleranz
+        pos_constraint.constraint_region.primitives.append(primitive)
+        pos_constraint.constraint_region.primitive_poses.append(pose_goal.pose)
+        pos_constraint.weight = 1.0
+
+        ori_constraint = OrientationConstraint()
+        ori_constraint.header = pose_goal.header
+        ori_constraint.link_name = "tool0"
+        ori_constraint.orientation = pose_goal.pose.orientation
+        ori_constraint.absolute_x_axis_tolerance = 0.01
+        ori_constraint.absolute_y_axis_tolerance = 0.01
+        ori_constraint.absolute_z_axis_tolerance = 0.01
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
         ori_constraint.weight = 1.0
 
         goal_constraints = Constraints()
         goal_constraints.position_constraints.append(pos_constraint)
         goal_constraints.orientation_constraints.append(ori_constraint)
+<<<<<<< HEAD
         goal_constraints.name = "cartesian_goal"
+=======
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 
         # -------- MoveGroup Goal --------
         goal_msg = MoveGroup.Goal()
         goal_msg.request.group_name = "ur_manipulator"
         goal_msg.request.goal_constraints.append(goal_constraints)
+<<<<<<< HEAD
         goal_msg.request.num_planning_attempts = 3
         goal_msg.request.allowed_planning_time = 5.0
         goal_msg.request.max_velocity_scaling_factor = 0.5
@@ -120,6 +164,17 @@ class UR5eMoveGroupNode(Node):
         future.add_done_callback(self.goal_response_cb)
         self.get_logger().info("MoveGroup goal was send ...")
         #rclpy.spin_until_future_complete(self, future)
+=======
+        goal_msg.request.num_planning_attempts = 5
+        goal_msg.request.allowed_planning_time = 5.0
+        goal_msg.request.max_velocity_scaling_factor = 0.5
+        goal_msg.request.max_acceleration_scaling_factor = 0.5
+
+        # -------- Goal senden --------
+        self.get_logger().info("Sende Pose an MoveGroup...")
+        future = self._action_client.send_goal_async(goal_msg)
+        rclpy.spin_until_future_complete(self, future)
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
         goal_handle = future.result()
 
         if not goal_handle.accepted:
@@ -139,7 +194,10 @@ class UR5eMoveGroupNode(Node):
 
 def main():
     rclpy.init()
+<<<<<<< HEAD
 
+=======
+>>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     node = UR5eMoveGroupNode()
 
     rclpy.spin(node)
