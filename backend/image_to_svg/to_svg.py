@@ -19,7 +19,7 @@ def contours_to_svg(contours, filename="out.svg", width=None, height=None):
         f.write('</svg>')
         
 
-def to_contours(img):
+def to_contours(img, top_n):
 
     #pixel in liste umwandeln
     pixels = img.reshape((-1, 1)).astype(np.float32)
@@ -55,11 +55,41 @@ def to_contours(img):
 
 INTERP_STEP = 1.0  # 1 mm zwischen Punkten
 
+def path_to_waypoints(path, interpSteps=INTERP_STEP):
+    waypoints = []
+    for sub in path.continuous_subpaths():
+        for seg in sub:
+            # Linien
+            if isinstance(seg, Line):
+                length = seg.length()
+                steps = max(int(length / interpSteps), 1)
+                for i in range(steps + 1):
+                    p = seg.start + (seg.end - seg.start) * (i / steps)
+                    waypoints.append([p.real, p.imag, 0])  # z=0, kann angepasst werden
+            # Kurven
+            elif isinstance(seg, (Arc, QuadraticBezier, CubicBezier)):
+                steps = max(int(seg.length() / interpSteps), 2)
+                for t in np.linspace(0, 1, steps):
+                    p = seg.point(t)
+                    waypoints.append([p.real, p.imag, 0])
+    return waypoints
+
+
+def svg_to_json(svg_file, json_file, interp_step=INTERP_STEP):
+    paths, attributes = svg2paths(svg_file)
+    waypointsAll = []
+
+    for path in paths:
+        wPoints = path_to_waypoints(path, interp_step)
+        waypointsAll.append(wPoints)
+
+    with open(json_file, 'w') as f:
+        json.dump(waypointsAll, f, indent=2)
 
 
 def main(args=None):
     img = cv2.imread('C:\\Users\\muham\\repos\\DrawMeMaybe\\src\\assets\\ChatGPT Image 16. Nov. 2025, 15_35_26.png', cv2.IMREAD_GRAYSCALE)
-    contours = to_contours(img)
+    contours = to_contours(img, 150)         #wieviele Linien es sein sollen
     contours_to_svg(contours, "top150.svg")
 
 
