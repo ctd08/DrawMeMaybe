@@ -5,9 +5,9 @@ from PIL import Image
 client = genai.Client(api_key="")
 
 # 1) kleines, harmloses Testbild laden
-input_image = Image.open("test_assets/young_man.jpg")
+input_image = Image.open("C:\\Users\\tutun\\drawmemaybe\\DrawMeMaybe\\test_assets\\red_head.png")
 
-prompt = "Create a simple black and white caricature of this person, with exaggerated eyes and head, playing football."
+prompt = "Create a simple black and white caricature of this person with few lines, with exaggerated eyes and head, while they are coding."
 
 response = client.models.generate_content(
     model="gemini-2.5-flash-image",
