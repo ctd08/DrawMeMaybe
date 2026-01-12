@@ -13,6 +13,10 @@ find_package(tf2_geometry_msgs REQUIRED)
 find_package(moveit_visual_tools REQUIRED)
 
 add_executable(move_moveit src/move_moveit.cpp)
+add_executable(haus_des_nikolaus src/move_moveit_anfang.cpp)
+add_executable(move_moveit_anfang src/move_moveit_anfang.cpp)
+add_executable(moveit_paint_svg src/moveit_paint_svg.cpp)
+
 target_include_directories(move_moveit PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -23,7 +27,29 @@ ament_target_dependencies(
   "rclcpp"
 )
 
+ament_target_dependencies(
+  haus_des_nikolaus
+  "moveit_ros_planning_interface"
+  "rclcpp"
+)
+
+ament_target_dependencies(
+  move_moveit_anfang
+  "moveit_ros_planning_interface"
+  "rclcpp"
+)
+
+ament_target_dependencies(
+  moveit_paint_svg
+  "moveit_ros_planning_interface"
+  "rclcpp"
+)
+
 install(TARGETS move_moveit
+  move_moveit
+  haus_des_nikolaus
+  move_moveit_anfang
+  moveit_paint_svg
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

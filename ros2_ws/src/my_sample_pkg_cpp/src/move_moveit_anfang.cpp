@@ -33,11 +33,6 @@ int main(int argc, char **argv){
 	std::thread([&executor]() {executor.spin(); }) .detach();
 	static const std::string PLANNING_GROUP_ARM = "ur_manipulator";
 	moveit::planning_interface::MoveGroupInterface move_group_arm(move_group_node, PLANNING_GROUP_ARM);
-
-    // >>> globale Geschwindigkeit (20%) von max <<<
-    move_group_arm.setMaxVelocityScalingFactor(0.2);
-    move_group_arm.setMaxAccelerationScalingFactor(0.2);
-
 	const moveit::core::JointModelGroup *joint_model_group_arm =
 	move_group_arm. getCurrentState()->getJointModelGroup(PLANNING_GROUP_ARM);
 
@@ -72,7 +67,7 @@ int main(int argc, char **argv){
 	target_pose1.orientation.y = -0.0177;
 	target_pose1.orientation.z = -0.0020;
 	target_pose1.orientation.w = -0.0212;
-	target_pose1.position.x = 0.176;
+	target_pose1.position.x = 0.136;
 	target_pose1.position.y = -0.447;
 	target_pose1.position.z = 0.312;
 
@@ -83,9 +78,9 @@ int main(int argc, char **argv){
 	ori_constraint.orientation = target_pose1.orientation;
 
 	// Toleranzen (rad)
-	ori_constraint.absolute_x_axis_tolerance = 0.015;
-	ori_constraint.absolute_y_axis_tolerance = 0.015;
-	ori_constraint.absolute_z_axis_tolerance = 0.015;
+	ori_constraint.absolute_x_axis_tolerance = 0.05;
+	ori_constraint.absolute_y_axis_tolerance = 0.05;
+	ori_constraint.absolute_z_axis_tolerance = 0.05;
 
 	ori_constraint.weight = 1.0;
 
@@ -98,96 +93,46 @@ int main(int argc, char **argv){
 	success_arm = (move_group_arm.plan(my_plan_arm) ==
 	moveit::core::MoveItErrorCode::SUCCESS);
 	move_group_arm.execute(my_plan_arm);
-/*
+
 	//Approach
-	RCLCPP_INFO(LOGGER, "Approach to paper!");
+	RCLCPP_INFO(LOGGER, "Approach to object!");
     std::vector<geometry_msgs::msg::Pose> approach_waypoints;
 
     geometry_msgs::msg::Pose start_pose = move_group_arm.getCurrentPose().pose;
     geometry_msgs::msg::Pose p1 = start_pose;
-    p1.position.z -= 0.035;
+    p1.position.z -= 0.01;
     approach_waypoints.push_back(p1);
 
     geometry_msgs::msg::Pose p2 = p1;
-    p2.position.z -= 0.035;
+    p2.position.z -= 0.01;
     approach_waypoints.push_back(p2);
 
     moveit_msgs::msg::RobotTrajectory trajectory_approach;
     const double jump_threshold = 0.0;
     const double eef_step = 0.01;
     double fraction = move_group_arm.computeCartesianPath(approach_waypoints, eef_step, jump_threshold, trajectory_approach);
-
-    // >>> GESCHWINDIGKEIT - tempurär <<<
-    //const double velocity_scaling = 0.2;     // 20 % Geschwindigkeit
-    //const double acceleration_scaling = 0.2; // 20 % Beschleunigung
-
-    //move_group_arm.execute(trajectory_approach, velocity_scaling, acceleration_scaling);
     move_group_arm.execute(trajectory_approach);
 
     if (fraction < 0.99)
         RCLCPP_WARN(LOGGER, "Nur %.1f %% des Pfades geplant!", fraction * 100.0);
-*/
-	//Das
-	RCLCPP_INFO(LOGGER, "---Das---");
-    std::vector<geometry_msgs::msg::Pose> waypoints;
+
+	//Retreat
+	RCLCPP_INFO(LOGGER, "Retreat from object!");
+    std::vector<geometry_msgs::msg::Pose> retreat_waypoints;
 
     geometry_msgs::msg::Pose retreat_start = move_group_arm.getCurrentPose().pose;
-    geometry_msgs::msg::Pose p = retreat_start;
+    geometry_msgs::msg::Pose r1 = retreat_start;
+    r1.position.y += 0.03;
+    retreat_waypoints.push_back(r1);
 
-    //Startpunkt A
-    p.position.x -= 0.13;
-    p.position.y += 0;
-	p.position.z -= 0.07;
-    waypoints.push_back(p);
-
-    // B
-    p.position.x += 0;
-    p.position.y -= 0.16;
-    waypoints.push_back(p);
-
-    // D
-    p.position.x -= 0.16;
-    p.position.y += 0;
-    waypoints.push_back(p);
-
-    // A
-    p.position.x += 0.16;
-    p.position.y += 0.16;
-    waypoints.push_back(p);
-
-    // E
-    p.position.x -= 0.16;
-    waypoints.push_back(p);
-
-    // B
-    p.position.x += 0.16;
-    p.position.y -= 0.16;
-    waypoints.push_back(p);
-
-    // E
-    p.position.x -= 0.08;
-    p.position.y -= 0.08;
-    waypoints.push_back(p);
-
-    // D
-    p.position.x -= 0.08;
-    p.position.y += 0.08;
-    waypoints.push_back(p);
-
-	p.position.x += 0;
-    p.position.y += 0.16;
-    waypoints.push_back(p);
-
-	p.position.x += 0.21;
-    p.position.y += 0.02;
-	p.position.z += 0.05;
-    waypoints.push_back(p);
+    geometry_msgs::msg::Pose r2 = r1;
+    r2.position.y += 0.03;
+    retreat_waypoints.push_back(r2);
 
     moveit_msgs::msg::RobotTrajectory trajectory_retreat;
-	const double jump_threshold = 0.0;
-    const double eef_step = 0.01;
-    double fraction = move_group_arm.computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory_retreat);
+    fraction = move_group_arm.computeCartesianPath(retreat_waypoints, eef_step, jump_threshold, trajectory_retreat);
     move_group_arm.execute(trajectory_retreat);
+
 	rclcpp::shutdown();
 	return 0;
 }

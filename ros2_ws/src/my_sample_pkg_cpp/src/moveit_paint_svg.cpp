@@ -140,47 +140,11 @@ int main(int argc, char **argv){
 	p.position.z -= 0.07;
     waypoints.push_back(p);
 
+	//ab hier die Einlesefunkition aus der Datei
+	
     // B
     p.position.x += 0;
     p.position.y -= 0.16;
-    waypoints.push_back(p);
-
-    // D
-    p.position.x -= 0.16;
-    p.position.y += 0;
-    waypoints.push_back(p);
-
-    // A
-    p.position.x += 0.16;
-    p.position.y += 0.16;
-    waypoints.push_back(p);
-
-    // E
-    p.position.x -= 0.16;
-    waypoints.push_back(p);
-
-    // B
-    p.position.x += 0.16;
-    p.position.y -= 0.16;
-    waypoints.push_back(p);
-
-    // E
-    p.position.x -= 0.08;
-    p.position.y -= 0.08;
-    waypoints.push_back(p);
-
-    // D
-    p.position.x -= 0.08;
-    p.position.y += 0.08;
-    waypoints.push_back(p);
-
-	p.position.x += 0;
-    p.position.y += 0.16;
-    waypoints.push_back(p);
-
-	p.position.x += 0.21;
-    p.position.y += 0.02;
-	p.position.z += 0.05;
     waypoints.push_back(p);
 
     moveit_msgs::msg::RobotTrajectory trajectory_retreat;
