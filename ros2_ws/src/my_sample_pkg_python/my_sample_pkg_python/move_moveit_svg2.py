@@ -18,12 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
-<<<<<<< HEAD
 import math as m3d
 #import math3d as m3d
-=======
-import math3d as m3d
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 import math
 import sys
 import urx
@@ -98,34 +94,21 @@ brush = {"red":    brush_transform(-1, 34 * np.pi / 180, 0.143),
          "black":  brush_transform( 2, 31 * np.pi / 180, 0.144)}
 
 def move_home():
-<<<<<<< HEAD
     #print "Move to home"
     r.movej(j_home, acc=1.0, vel=v)
 
 def move_to_canvas():
     #print "Move to canvas"
-=======
-    print "Move to home"
-    r.movej(j_home, acc=1.0, vel=v)
-
-def move_to_canvas():
-    print "Move to canvas"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     j = r.getj() # Keep orientation of last joint
     r.movej(j_canvas_above[:5] + (j[5],), acc=a, vel=v)
 
 def move_to_paint():
-<<<<<<< HEAD
     #print "Move to paint"
-=======
-    print "Move to paint"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     r.movej(j_paint_above, acc=a, vel=v)
     #j = r.getj() # Keep orientation of last joint
     #r.movej(j_paint_above[:5] + (j[5],), acc=a, vel=v)
     
 def move_to_brush_change():
-<<<<<<< HEAD
     #print "Move to brush change"
     r.movej(j_brush_change, acc=a, vel=v)
 
@@ -137,29 +120,12 @@ def move_to_brush_calibration(stroke):
     #   Move with no brush selected to avoid extreme rotations of last joint
     r.set_tcp((0, 0, 0.15, 0, 0, 0))
     #print "  Move over calibration point"
-=======
-    print "Move to brush change"
-    r.movej(j_brush_change, acc=a, vel=v)
-
-def move_to_brush_calibration(stroke):
-    print "Set base coordiante system"
-    r.set_csys(m3d.Transform())
-
-    print "Calibrate brush"
-    #   Move with no brush selected to avoid extreme rotations of last joint
-    r.set_tcp((0, 0, 0.15, 0, 0, 0))
-    print "  Move over calibration point"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     r.movel(brush_calib_above, acc=a, vel=v)
     #   Select brush
     r.set_tcp(brush[stroke])
     r.movel(brush_calib_above, acc=a, vel=v)
     #   Move into color
-<<<<<<< HEAD
     #print "  Move to calibration point"
-=======
-    print "  Move to calibration point"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     r.movel(brush_calib_down, acc=a/2, vel=v/4)
 
 def calibrate_brush(stroke):
@@ -168,38 +134,25 @@ def calibrate_brush(stroke):
     r.movel(brush_calib_above, acc=a, vel=v)
 
 def move_to_canvas_origin(stroke):
-<<<<<<< HEAD
     #print "Set canvas coordinate system"
-=======
-    print "Set canvas coordinate system"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     r.set_csys(canvas_coordinates)
     r.set_tcp(brush[stroke])
     r.movel((0, 0, -hover, 0, 0, 0), acc=a, vel=v)
 
 def move_to_canvas_xaxis(stroke):
-<<<<<<< HEAD
     #print "Set canvas coordinate system"
-=======
-    print "Set canvas coordinate system"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     r.set_csys(canvas_coordinates)
     r.set_tcp(brush[stroke])
     r.movel((0.75, 0, -hover, 0, 0, 0), acc=a, vel=v)
 
 def move_to_canvas_yaxis(stroke):
-<<<<<<< HEAD
     #print "Set canvas coordinate system"
-=======
-    print "Set canvas coordinate system"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     r.set_csys(canvas_coordinates)
     r.set_tcp(brush[stroke])
     r.movel((0, 0.55, -hover, 0, 0, 0), acc=a, vel=v)
 
 
 def get_paint(stroke):
-<<<<<<< HEAD
     #print "Set base coordiante system"
     r.set_csys(m3d.Transform())
 
@@ -210,18 +163,6 @@ def get_paint(stroke):
     #   Move with no brush selected to avoid extreme rotations of last joint
     r.set_tcp((0, 0, 0.15, 0, 0, 0))
     #print "  Move over color pot"
-=======
-    print "Set base coordiante system"
-    r.set_csys(m3d.Transform())
-
-    # TODO: check current position
-    print "  Distance to pots:", r._get_joints_dist(j_paint_above)
-
-    print "Get new paint"
-    #   Move with no brush selected to avoid extreme rotations of last joint
-    r.set_tcp((0, 0, 0.15, 0, 0, 0))
-    print "  Move over color pot"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     r.movel(paint[stroke], acc=a, vel=v)
     # TODO:  Measure color depth
     
@@ -229,7 +170,6 @@ def get_paint(stroke):
     r.set_tcp(brush[stroke])
     r.movel(paint[stroke], acc=a, vel=v)
     #   Move into color
-<<<<<<< HEAD
     #print "  Move into color pot"
     r.down(z=paint_depth, acc=a/2, vel=v/3)
     sleep(in_paint_duration)
@@ -240,18 +180,6 @@ def get_paint(stroke):
     sleep(drop_off_duration)
     
     #print "  Remove paint from tip of brush"
-=======
-    print "  Move into color pot"
-    r.down(z=paint_depth, acc=a/2, vel=v/3)
-    sleep(in_paint_duration)
-
-    print "  Move over color pot"
-    r.movel(paint[stroke], acc=a, vel=v)
-    print "  Wait for color to drop off"
-    sleep(drop_off_duration)
-    
-    print "  Remove paint from tip of brush"
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     radius = 0.018
     circle = [m3d.Transform(m3d.Orientation.new_rot_z(i * np.pi / 6), (0, 0, 0)) * m3d.Vector(-radius, -radius, 0) for i in range(8)]
     circle = [m3d.Transform((0, np.pi, 0), mesh[stroke] + c) for c in circle]
@@ -259,7 +187,6 @@ def get_paint(stroke):
     r.movels(circle, acc=a, vel=v/4)
 
 def paint_path(path):
-<<<<<<< HEAD
     #print "Set canvas coordinate system"
     r.set_csys(canvas_coordinates)
 
@@ -269,17 +196,6 @@ def paint_path(path):
     #print "Paint path"
     for sub in path.continuous_subpaths():
         #print "  Paint continuous sub path with length %smm" % (round(sub.length()))
-=======
-    print "Set canvas coordinate system"
-    r.set_csys(canvas_coordinates)
-
-    # TODO: check current position
-    print "  Distance to canvas:", r._get_joints_dist(j_canvas_above)
-
-    print "Paint path"
-    for sub in path.continuous_subpaths():
-        print "  Paint continuous sub path with length %smm" % (round(sub.length()))
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
         r.movel((sub.start.real / 1e3, sub.start.imag / 1e3, -hover, 0, 0, 0), acc=a, vel=v)
         poses = []
         acc_dist = 0
@@ -304,11 +220,7 @@ def paint_svg(paths, attributes):
     i = 0
     for (path, attr) in zip(paths, attributes):
         stroke = attr['stroke']
-<<<<<<< HEAD
         #print "Path", i, "with color", stroke, "of length", round(path.length())
-=======
-        print "Path", i, "with color", stroke, "of length", round(path.length())
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
 
         move_to_paint()
         try:
@@ -316,11 +228,7 @@ def paint_svg(paths, attributes):
             move_to_canvas()
             paint_path(path)
         except Exception as e:
-<<<<<<< HEAD
             #print "ERROR:", e
-=======
-            print "ERROR:", e
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
             raw_input("Press enter to continue... ")
 
         i += 1
@@ -331,11 +239,7 @@ if __name__ == '__main__':
         paths, attributes = svg2paths(sys.argv[1])
         paint_svg(paths, attributes)
     except Exception as e:
-<<<<<<< HEAD
         #print "ERROR:", e
-=======
-        print "ERROR:", e
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
         raw_input("Press enter to continue... ")
     
     
@@ -344,13 +248,8 @@ if __name__ == '__main__':
 
     r.stopj()
     p = r.getl()
-<<<<<<< HEAD
     #print "Tool pose is: ", np.array(p)
     #print "Robot joints: ", r.getj()
-=======
-    print "Tool pose is: ", np.array(p)
-    print "Robot joints: ", r.getj()
->>>>>>> d8a9ecc031abb0f000a5f0cffbb426af77f1ee2f
     
     r.secmon.close()
     r.rtmon.close()
