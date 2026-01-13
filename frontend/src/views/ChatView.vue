@@ -72,7 +72,7 @@
     </div>
 
     <!-- 3b) Stepper after confirmation -->
-    <div
+    <!--<div>
       v-if="isConfirmed"
       class="stepper"
       :class="{ 'stepper--done': currentStep === steps.length }"
@@ -97,7 +97,7 @@
           {{ step.title }}
         </div>
       </div>
-    </div>
+    </div> > -->
 
     <!-- Error -->
     <div v-if="errorMessage" class="error-text">
