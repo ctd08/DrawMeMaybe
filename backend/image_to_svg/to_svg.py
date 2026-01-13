@@ -3,6 +3,26 @@ import numpy as np
 from svgpathtools import svg2paths, Arc, Line, QuadraticBezier, CubicBezier
 import json
 
+import json
+
+def contours_to_json(contours, filename="paths.json", scale=0.001):
+    paths = []
+
+    for cnt in contours:
+        line = []
+        for p in cnt:
+            x = round(float(p[0][0]) * scale, 2)
+            y = round(float(p[0][1]) * scale, 2)
+            line.append([x, y])
+        paths.append(line)
+
+    data = {
+        "paths": paths
+    }
+
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=2)
+
 
 def contours_to_svg(contours, filename="out.svg", width=None, height=None):
     # Breite/Höhe optional für viewBox
@@ -45,11 +65,9 @@ def to_contours(img, top_n):
     #konturen finden
     contours, hierarchy = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = sorted(contours, key=cv2.contourArea, reverse=True)
-    top_n = 150
     top_contours = contours[:top_n]
 
-    #SVG
-    approx_contours = [cv2.approxPolyDP(cnt, epsilon=2, closed=True) for cnt in top_contours]
+    approx_contours = [cv2.approxPolyDP(cnt, epsilon=1.5, closed=True) for cnt in top_contours]
     return approx_contours
 
 
@@ -88,9 +106,15 @@ def svg_to_json(svg_file, json_file, interp_step=INTERP_STEP):
 
 
 def main(args=None):
-    img = cv2.imread('C:\\Users\\muham\\repos\\DrawMeMaybe\\src\\assets\\ChatGPT Image 16. Nov. 2025, 15_35_26.png', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread("backend/image_to_svg/bsp_tuep.png", cv2.IMREAD_GRAYSCALE)
+    if img is None:
+        raise RuntimeError("Image could not be loaded")
     contours = to_contours(img, 150)         #wieviele Linien es sein sollen
     contours_to_svg(contours, "top150.svg")
+    contours_to_json(contours,"paths.json", 0.01)
+
+if __name__ == "__main__":
+    main()
 
 
 
