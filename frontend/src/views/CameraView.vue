@@ -131,10 +131,8 @@ const errorMessage = ref("");
 
 const mediaStream = ref(null);
 
-const API_BASE =
-  import.meta.env.PROD
-    ? "https://www.drawmemaybe.local:8000"
-    : "http://localhost:8000";
+const API_BASE = "/api";
+
 
 async function startCamera() {
   errorMessage.value = "";

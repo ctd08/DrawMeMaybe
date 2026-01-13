@@ -2,5 +2,5 @@
 #cd "$(dirname "$0")/.."  # Go to project root
 export PYTHONPATH="${PWD}"
 echo "PYTHONPATH: $PYTHONPATH"
-python3 -m uvicorn backend.main:app  --host 0.0.0.0 --port 8000
+python3 -m uvicorn backend.main:app  --host 127.0.0.1 --port 8000
 .

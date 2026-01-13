@@ -137,10 +137,8 @@ const errorMessage = ref("");
 const isThinking = ref(false);
 const hasUserSent = ref(false); //  User darf nur 1x senden
 
-const API_BASE =
-  import.meta.env.PROD
-    ? "https://www.drawmemaybe.local:8000"
-    : "http://localhost:8000";
+const API_BASE = "/api";
+
 
 function validate() {
   if (!userText.value.trim()) {

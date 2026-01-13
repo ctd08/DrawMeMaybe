@@ -156,10 +156,8 @@ const router = useRouter();
 //const API_BASE = "http://127.0.0.1:8000";
 //const API_BASE = `http://${window.location.hostname}:8000`;
 
-const API_BASE =
-  import.meta.env.PROD
-    ? "https://www.drawmemaybe.local:8000"
-    : "http://localhost:8000";
+const API_BASE = "/api";
+
 
 // frontend keys stay as you had them
 const CONSENT_KEY = "drawmemaybe_consent_accepted";
