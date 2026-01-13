@@ -10,15 +10,16 @@ app = FastAPI()
 
 # Allow  Vue dev server to talk to this API
 origins = [
+    "https://www.drawmemaybe.local",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    #allow_origins=origins,
-    allow_credentials=True,
+    #allow_origins=["*"],
+    allow_origins=origins,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

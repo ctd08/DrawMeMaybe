@@ -137,6 +137,11 @@ const errorMessage = ref("");
 const isThinking = ref(false);
 const hasUserSent = ref(false); //  User darf nur 1x senden
 
+const API_BASE =
+  import.meta.env.PROD
+    ? "https://www.drawmemaybe.local:8000"
+    : "http://localhost:8000";
+
 function validate() {
   if (!userText.value.trim()) {
     errorMessage.value = "Please write something about yourself.";
@@ -220,7 +225,7 @@ async function onSend() {
   });*/
 
   try {
-    const response = await fetch("http://localhost:8000/api/chat", {
+    const response = await fetch("`${API_BASE}/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

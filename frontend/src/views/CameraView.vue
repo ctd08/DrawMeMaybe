@@ -131,6 +131,11 @@ const errorMessage = ref("");
 
 const mediaStream = ref(null);
 
+const API_BASE =
+  import.meta.env.PROD
+    ? "https://www.drawmemaybe.local:8000"
+    : "http://localhost:8000";
+
 async function startCamera() {
   errorMessage.value = "";
 
@@ -258,7 +263,7 @@ async function onContinue() {
   const session_id = sessionStorage.getItem("drawmemaybe_session_id");
   const dataUrl = photoDataUrl.value;
   try {
-    const res = await fetch("http://localhost:8000/photo", {
+    const res = await fetch("`${API_BASE}/photo", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ session_id, data_url: dataUrl }),
