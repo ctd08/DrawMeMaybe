@@ -25,6 +25,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+BASE_DIR = Path(__file__).resolve().parent  # Ordner backend/
+ASSETS_DIR = BASE_DIR / "ai_image" / "sd_pipeline" / "assets"
 
 class ConsentPayload(BaseModel):
     session_id: str
@@ -100,10 +102,15 @@ async def upload_photo(payload: PhotoPayload):
     header, _, b64data = payload.data_url.partition(",")
     img_bytes = base64.b64decode(b64data)
 
-    folder = Path("backend/ai_image/sd_pipeline/assets")
-    folder.mkdir(parents=True, exist_ok=True)
-    img_path = folder / f"{payload.session_id}.png"
+    ASSETS_DIR.mkdir(parents=True, exist_ok=True)
+    img_path = ASSETS_DIR / f"{payload.session_id}.png"
+    print("Saving to:", img_path)  # kurzfristig zum Prüfen
     img_path.write_bytes(img_bytes)
+
+    #folder = Path("/home/drawmemaybe/drawmemaybe/DrawMeMaybe/backend/ai_image/sd_pipeline/assets")
+    #folder.mkdir(parents=True, exist_ok=True)
+    #img_path = folder / f"{payload.session_id}.png"
+    #img_path.write_bytes(img_bytes)
 
     return {"ok": True, "path": str(img_path)}
 

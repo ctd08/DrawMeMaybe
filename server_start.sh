@@ -22,6 +22,9 @@ case $option in
         ;;
     4)
         sudo systemctl reload apache2
+        ;;
+    5)
+        sudo systemctl status apache2
         ;;    
     *)
         echo "Dies Option gibt es nicht, sorry. Nur 1,2,3,4"

@@ -261,7 +261,7 @@ async function onContinue() {
   const session_id = sessionStorage.getItem("drawmemaybe_session_id");
   const dataUrl = photoDataUrl.value;
   try {
-    const res = await fetch("`${API_BASE}/photo", {
+    const res = await fetch(`${API_BASE}/photo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ session_id, data_url: dataUrl }),

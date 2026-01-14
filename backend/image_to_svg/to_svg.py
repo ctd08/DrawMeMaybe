@@ -1,6 +1,6 @@
 import cv2 as cv2
 import numpy as np
-from svgpathtools import svg2paths, Arc, Line, QuadraticBezier, CubicBezier
+#from svgpathtools import svg2paths, Arc, Line, QuadraticBezier, CubicBezier
 import json
 
 import json
@@ -73,44 +73,44 @@ def to_contours(img, top_n):
 
 INTERP_STEP = 1.0  # 1 mm zwischen Punkten
 
-def path_to_waypoints(path, interpSteps=INTERP_STEP):
-    waypoints = []
-    for sub in path.continuous_subpaths():
-        for seg in sub:
-            # Linien
-            if isinstance(seg, Line):
-                length = seg.length()
-                steps = max(int(length / interpSteps), 1)
-                for i in range(steps + 1):
-                    p = seg.start + (seg.end - seg.start) * (i / steps)
-                    waypoints.append([p.real, p.imag, 0])  # z=0, kann angepasst werden
-            # Kurven
-            elif isinstance(seg, (Arc, QuadraticBezier, CubicBezier)):
-                steps = max(int(seg.length() / interpSteps), 2)
-                for t in np.linspace(0, 1, steps):
-                    p = seg.point(t)
-                    waypoints.append([p.real, p.imag, 0])
-    return waypoints
+# def path_to_waypoints(path, interpSteps=INTERP_STEP):
+#     waypoints = []
+#     for sub in path.continuous_subpaths():
+#         for seg in sub:
+#             # Linien
+#             if isinstance(seg, Line):
+#                 length = seg.length()
+#                 steps = max(int(length / interpSteps), 1)
+#                 for i in range(steps + 1):
+#                     p = seg.start + (seg.end - seg.start) * (i / steps)
+#                     waypoints.append([p.real, p.imag, 0])  # z=0, kann angepasst werden
+#             # Kurven
+#             elif isinstance(seg, (Arc, QuadraticBezier, CubicBezier)):
+#                 steps = max(int(seg.length() / interpSteps), 2)
+#                 for t in np.linspace(0, 1, steps):
+#                     p = seg.point(t)
+#                     waypoints.append([p.real, p.imag, 0])
+#     return waypoints
 
 
-def svg_to_json(svg_file, json_file, interp_step=INTERP_STEP):
-    paths, attributes = svg2paths(svg_file)
-    waypointsAll = []
+# def svg_to_json(svg_file, json_file, interp_step=INTERP_STEP):
+#     paths, attributes = svg2paths(svg_file)
+#     waypointsAll = []
 
-    for path in paths:
-        wPoints = path_to_waypoints(path, interp_step)
-        waypointsAll.append(wPoints)
+#     for path in paths:
+#         wPoints = path_to_waypoints(path, interp_step)
+#         waypointsAll.append(wPoints)
 
-    with open(json_file, 'w') as f:
-        json.dump(waypointsAll, f, indent=2)
+#     with open(json_file, 'w') as f:
+#         json.dump(waypointsAll, f, indent=2)
 
 
 def main(args=None):
-    img = cv2.imread("backend/image_to_svg/bsp_tuep.png", cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread("/home/drawmemaybe/drawmemaybe/DrawMeMaybe/caricature.png", cv2.IMREAD_GRAYSCALE)
     if img is None:
         raise RuntimeError("Image could not be loaded")
     contours = to_contours(img, 150)         #wieviele Linien es sein sollen
-    #contours_to_svg(contours, "top150.svg")
+    contours_to_svg(contours, "top150.svg")
     contours_to_json(contours,"paths.json", 0.01)
 
 if __name__ == "__main__":

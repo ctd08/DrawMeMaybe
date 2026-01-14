@@ -49,7 +49,8 @@ def run_gemini_only(session_id: str) -> Path:
 
     return out_image
 
-if __name__ == "__main__":
-    # Nur zum lokalen Testen:
-    test_session = "test123"
-    print(run_gemini_only(test_session))
+#if __name__ == "__main__":
+    #main()
+     # Nur zum lokalen Testen:
+     #test_session = "test123"
+     #print(run_gemini_only(test_session))
