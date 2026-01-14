@@ -17,4 +17,6 @@ coverage/
 *.iml
 LoRAs/
 ros2_ws/build/
-db.json
+db.jsonpaths.json
+top150.svg
+bsp_tuep.png
