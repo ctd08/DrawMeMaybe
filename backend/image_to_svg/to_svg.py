@@ -110,7 +110,7 @@ def main(args=None):
     if img is None:
         raise RuntimeError("Image could not be loaded")
     contours = to_contours(img, 150)         #wieviele Linien es sein sollen
-    contours_to_svg(contours, "top150.svg")
+    #contours_to_svg(contours, "top150.svg")
     contours_to_json(contours,"paths.json", 0.01)
 
 if __name__ == "__main__":
