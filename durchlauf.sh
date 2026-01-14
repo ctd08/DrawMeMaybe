@@ -19,4 +19,10 @@ python3.12 ai_image/sd_pipeline/run_agent_only.py
 echo ==== 6. Stopping Ollama service ====
 sudo systemctl stop ollama
 
+echo ==== 7. Start Gemini ====
+python backend/ai_image/sd_pipeline/run_gemini_only.py
+
+
+
+
 
