@@ -223,7 +223,7 @@ async function onSend() {
   });*/
 
   try {
-    const response = await fetch("`${API_BASE}/api/chat", {
+    const response = await fetch(`${API_BASE}/api/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -287,7 +287,7 @@ async function onSend() {
     //create personalised response
     const scenes = {
       climbing: "We'll portray you gripping a climbing rope and carabiners, chalk bag at your waist, harness ready for the next ascent!",
-      coding: "Picture you at a sleek coding setup with multiple glowing monitors, keyboard flying as you debug with intense focus!",
+      coding: "Picture you at a sleek coding setup witih multiple glowing monitors, keyboard flying as you debug with intense focus!",
       cooking: "You as a master chef in a professional apron, wielding oversized utensils over a steaming gourmet pot with perfect plating skills!",
       
       gaming: "Epic gamer with glowing RGB keyboard, headset mic down, locked in a high-stakes esports match!",
@@ -327,7 +327,7 @@ async function onSend() {
 
     /*messages.value({
     role: "assistant",
-    content: "No problem! Please tell me more about your hobbies or interests."
+    content: "No problem! Please tell me more about yoiur hobbies or interests."
     });*/
      messages.value = [
     {
