@@ -176,7 +176,7 @@ Response:"""
         
     #Generate Prompt
     
-    def generate_prompt(self, hobbies: List[str], image: Image.Image, 
+    def generate_prompt(self, hobbies: List[str], 
                        exaggerations: List[str]) -> str:
         """
         Generate SD prompt based on hobbies, image, and random exaggerations.
@@ -228,7 +228,7 @@ class CaricatureAgent:
     def __init__(self, model: str = "mistral:7b-instruct-q4_K_M"):
         self.llm = OllamaAgent(model=model) #erstellt Ollama Wrapper
     
-    def run(self, image: Image.Image, user_text: str) -> CaricatureConcept:
+    def run(self, user_text: str) -> CaricatureConcept:
         """
         Main entrypoint.
         
@@ -252,7 +252,7 @@ class CaricatureAgent:
         
         # Step 3: Generate SD prompt (with exaggerations)
         #Output: "Create a playful caricature ..."
-        sd_prompt = self.llm.generate_prompt(hobbies, image, exaggerations)
+        sd_prompt = self.llm.generate_prompt(hobbies, exaggerations)
         
         # Step 4: Build concept
         title = self._build_title(hobbies)  #Output: "The Climbing Caricature"
@@ -303,7 +303,7 @@ def _get_agent() -> CaricatureAgent:
         _agent = CaricatureAgent()  #erstelle beim ersten aufruf
     return _agent #nächste aufrufe geben selbe Instanz zurück
 
-def run_caricature_agent( user_text: str) -> Dict:
+def run_caricature_agent(user_text: str) -> Dict:
     """
     Main entrypoint for your backend.
     
@@ -335,15 +335,15 @@ if __name__ == "__main__":
     import sys
     
     # Create a dummy image for testing
-    test_image = Image.new('RGB', (512, 512), color='white')
+    #test_image = Image.new('RGB', (512, 512), color='white')
     test_text = "I love coding and reading, also into animes"
     
     print("\n🎨 Caricature Agent Test\n")
     print(f"Input text: {test_text}")
-    print(f"Image size: {test_image.size}")
+    #print(f"Image size: {test_image.size}")
     
     try:
-        result = run_caricature_agent(test_image, test_text)
+        result = run_caricature_agent(test_text)
         print("\n✓ Success!\n")
         for key, value in result.items():
             print(f"{key}: {value}")

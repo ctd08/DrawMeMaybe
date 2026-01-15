@@ -13,7 +13,9 @@ echo ==== 3. Starting Ollama  ===
 sudo systemctl start ollama
 
 echo ==== 4. Running Agent ====
-python3.12 backend/ai_image/sd_pipeline/run_agent_only.py
+export PYTHONPATH="/home/drawmemaybe/drawmemaybe/DrawMeMaybe/backend"
+#python3.12 backend/ai_image/sd_pipeline/run_agent_only.py
+python3.12 -m ai_image.sd_pipeline.run_agent_only
 
 
 echo ==== 5. Stopping Ollama service ====
