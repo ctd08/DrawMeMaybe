@@ -303,7 +303,7 @@ def _get_agent() -> CaricatureAgent:
         _agent = CaricatureAgent()  #erstelle beim ersten aufruf
     return _agent #nächste aufrufe geben selbe Instanz zurück
 
-def run_caricature_agent(image: Image.Image, user_text: str) -> Dict:
+def run_caricature_agent( user_text: str) -> Dict:
     """
     Main entrypoint for your backend.
     
@@ -321,7 +321,7 @@ def run_caricature_agent(image: Image.Image, user_text: str) -> Dict:
             - generation_time_ms
     """
     agent = _get_agent()    #hole oder erstelle agent
-    concept = agent.run(image, user_text)   #run workflow
+    concept = agent.run(user_text)   #run workflow
     return concept.to_dict()    #konvertiert zu dictionary
 
 
