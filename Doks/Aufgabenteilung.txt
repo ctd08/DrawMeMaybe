@@ -27,6 +27,7 @@ Stephan Reckziegel:
 	-> Erstellung der Node für mit tempurären Frame des Endefektors und dem Auslesen der json-Datei
 - Konzept von dem Gestell der Leinwand
 	-> Desing in dem Item-Konigurator
+- Shellscript für den externen Start der Roboterverbindung(start_robot.sh)
 
 Cristina Tutunariu:
 - Ausprobieren der Interfaces für die Karrikaturerstellung
