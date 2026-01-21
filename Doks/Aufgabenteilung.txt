@@ -1,0 +1,37 @@
+In diesem Dokument werden die gemachten Aufgaben der jeweiligen Teammitglieder aufgelistet
+
+Muhammet Keser:
+- Ausprobieren der Interfaces für die Karrikaturerstellung
+- richtigen Filder für die Karikaur herraussuchen
+	-> auf notwendige Linien der Karikatur reduzieren
+- Konverteirung des Bides zu SVG
+	-> wurde im Laufe des Projektes aber nicht benötigt
+- Konvertierung der Punkte in json
+	-> Bild => json-Datei
+- Algorithmus zum Einfügen der Punkte
+	-> json-Datei => Posen
+- Halterung für die Parücke
+
+Stephan Reckziegel:
+- Grundinstallation des Webservers
+	-> Http und Https-Konfiguration
+	-> Grundkonfiguration musst von http auf https erweitert werden, da der Kamerazugriff dies erfordert
+- Installation des UR-Treibers
+- Intallation von Moveit2
+- Programmierung mit dem Framework 'Moveit2'
+	-> Programmierung mit dem Trajecotry-Controller
+	-> Erstellung der ersten Nodes in Python
+	-> Erstellung der Nodes mit Move_Group_Interface in Python (hat nicht geklappt weden Python-Version-Konflikte)
+	-> Erstellung der Nodes mit Move_Group_Interface in C++
+	-> Erstellung der Node mit eingenen Tempurären Frame für des Endefektors
+	-> Erstellung der Node für mit tempurären Frame des Endefektors und dem Auslesen der json-Datei
+- Konzept von dem Gestell der Leinwand
+	-> Desing in dem Item-Konigurator
+
+Cristina Tutunariu:
+- Ausprobieren der Interfaces für die Karrikaturerstellung
+- Designen des Plakates und Flyer
+- Programmierung des Frontends
+- Programmierung des Backends
+- Erweiterte Konfiguration des Apache2-Webservers
+	-> Konfigurationsdateien von HTTPS so erweitert, dass das Frontend funktioniert
