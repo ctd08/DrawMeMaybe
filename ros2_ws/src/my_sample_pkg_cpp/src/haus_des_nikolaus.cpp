@@ -35,8 +35,8 @@ int main(int argc, char **argv){
 	moveit::planning_interface::MoveGroupInterface move_group_arm(move_group_node, PLANNING_GROUP_ARM);
 
     // >>> globale Geschwindigkeit (20%) von max <<<
-    move_group_arm.setMaxVelocityScalingFactor(0.2);
-    move_group_arm.setMaxAccelerationScalingFactor(0.2);
+    move_group_arm.setMaxVelocityScalingFactor(0.5);
+    move_group_arm.setMaxAccelerationScalingFactor(0.5);
 
 	const moveit::core::JointModelGroup *joint_model_group_arm =
 	move_group_arm. getCurrentState()->getJointModelGroup(PLANNING_GROUP_ARM);

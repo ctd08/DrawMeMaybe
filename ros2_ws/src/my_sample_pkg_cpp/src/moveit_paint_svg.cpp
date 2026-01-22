@@ -3,6 +3,9 @@
 #include <moveit_msgs/msg/display_robot_state.hpp>
 #include <moveit_msgs/msg/display_trajectory.hpp>
 
+#include <fstream>
+#include <vector>
+#include <nlohmann/json.hpp>
 #include <cstdio>
 //necessary memory included
 #include <memory>
@@ -18,6 +21,8 @@
 
 #include <moveit_msgs/msg/attached_collision_object.hpp>
 #include <moveit_msgs/msg/collision_object.hpp>
+
+using json = nlohmann::json;
 
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("move_group");
 //static const rclpp::Logger Logger = rclpp::get_logger("move_group");
@@ -98,49 +103,93 @@ int main(int argc, char **argv){
 	success_arm = (move_group_arm.plan(my_plan_arm) ==
 	moveit::core::MoveItErrorCode::SUCCESS);
 	move_group_arm.execute(my_plan_arm);
-/*
-	//Approach
-	RCLCPP_INFO(LOGGER, "Approach to paper!");
-    std::vector<geometry_msgs::msg::Pose> approach_waypoints;
 
-    geometry_msgs::msg::Pose start_pose = move_group_arm.getCurrentPose().pose;
-    geometry_msgs::msg::Pose p1 = start_pose;
-    p1.position.z -= 0.035;
-    approach_waypoints.push_back(p1);
 
-    geometry_msgs::msg::Pose p2 = p1;
-    p2.position.z -= 0.035;
-    approach_waypoints.push_back(p2);
+	RCLCPP_INFO(LOGGER, "Datei ausgelesen");
+	// JSON-Datei laden
+    std::ifstream file("/home/drawmemaybe/DrawMeMaybe/ros2_ws/paths.json");
+    if (!file.is_open()) {
+        std::cerr << "Fehler beim Öffnen der Datei!" << std::endl;
+        return -1;
+    }
 
-    moveit_msgs::msg::RobotTrajectory trajectory_approach;
-    const double jump_threshold = 0.0;
-    const double eef_step = 0.01;
-    double fraction = move_group_arm.computeCartesianPath(approach_waypoints, eef_step, jump_threshold, trajectory_approach);
+	// JSON-Daten aus der Datei einlesen
+    json data;
+    file >> data;
 
-    // >>> GESCHWINDIGKEIT - tempurär <<<
-    //const double velocity_scaling = 0.2;     // 20 % Geschwindigkeit
-    //const double acceleration_scaling = 0.2; // 20 % Beschleunigung
-
-    //move_group_arm.execute(trajectory_approach, velocity_scaling, acceleration_scaling);
-    move_group_arm.execute(trajectory_approach);
-
-    if (fraction < 0.99)
-        RCLCPP_WARN(LOGGER, "Nur %.1f %% des Pfades geplant!", fraction * 100.0);
-*/
-	//Das
-	RCLCPP_INFO(LOGGER, "---Das---");
+	RCLCPP_INFO(LOGGER, "Start");
     std::vector<geometry_msgs::msg::Pose> waypoints;
 
     geometry_msgs::msg::Pose retreat_start = move_group_arm.getCurrentPose().pose;
+	RCLCPP_INFO(LOGGER, "Position: x=%.3f, y=%.3f, z=%.3f", retreat_start.position.x, 
+		retreat_start.position.y, retreat_start.position.z);
+	RCLCPP_INFO(LOGGER, "Orientation: x=%.3f, y=%.3f, z=%.3f, w=%.3f", retreat_start.orientation.x, 
+		retreat_start.orientation.y, retreat_start.orientation.z, retreat_start.orientation.w);
+
     geometry_msgs::msg::Pose p = retreat_start;
 
     //Startpunkt A
+	double z_position = 0.03;
+	
+	RCLCPP_INFO(LOGGER, "Startpunkt");
     p.position.x -= 0.13;
     p.position.y += 0;
-	p.position.z -= 0.07;
+	p.position.z -= 0.05;
     waypoints.push_back(p);
 
 	//ab hier die Einlesefunkition aus der Datei
+
+	// Variable zum Speichern der Pfade
+    std::vector<std::vector<std::pair<double, double>>> paths;
+	move_group_arm.setPathConstraints(path_constraints);
+	geometry_msgs::msg::Pose start = move_group_arm.getCurrentPose().pose;
+
+	RCLCPP_INFO(LOGGER, "Position: x=%.3f, y=%.3f, z=%.3f", start.position.x, 
+		start.position.y, start.position.z);
+	RCLCPP_INFO(LOGGER, "Orientation: x=%.3f, y=%.3f, z=%.3f, w=%.3f", start.orientation.x, 
+		start.orientation.y, start.orientation.z, start.orientation.w);
+
+	geometry_msgs::msg::Pose target;
+
+	bool first = true;
+	bool first_point = true;
+
+	// JSON-Daten durchlaufen und die Koordinaten extrahieren
+	RCLCPP_INFO(LOGGER, "Linein");
+    for (const auto& path : data["paths"]) {
+        std::vector<std::pair<double, double>> coordinates;
+		first = true;
+		
+        for (const auto& point : path) {
+			target.orientation.x = 0.9996;
+			target.orientation.y = -0.0177;
+			target.orientation.z = -0.0020;
+			target.orientation.w = -0.0212;
+			target.position.x = start.position.x - (double)point[0]; // Invertiere X-Achse und offset
+			target.position.y = start.position.y - (double)point[1]; // Invertiere Y-Achse und offset
+			target.position.z = z_position; // Setze Z-Achse auf festen Wert
+
+			if(first_point){
+				RCLCPP_INFO(LOGGER, "Position: x=%.3f, y=%.3f, z=%.3f", target.position.x, 
+					target.position.y, target.position.z);
+				RCLCPP_INFO(LOGGER, "Orientation: x=%.3f, y=%.3f, z=%.3f, w=%.3f", target.orientation.x, 
+					target.orientation.y, target.orientation.z, target.orientation.w);
+				first_point = false;
+			} 
+			
+			waypoints.push_back(target);
+
+			if (first){
+				target.position.z -= 0.02;
+				first = false;
+				
+				waypoints.push_back(target);
+			}
+        }
+        //paths.push_back(coordinates);
+		target.position.z += 0.02;
+    	waypoints.push_back(target);
+    }
 	
     // B
     p.position.x += 0;

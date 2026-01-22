@@ -16,6 +16,8 @@ add_executable(move_moveit src/move_moveit.cpp)
 add_executable(haus_des_nikolaus src/move_moveit_anfang.cpp)
 add_executable(move_moveit_anfang src/move_moveit_anfang.cpp)
 add_executable(moveit_paint_svg src/moveit_paint_svg.cpp)
+add_executable(eingener_frame src/eingener_frame.cpp)
+add_executable(eingener_frame_svg src/eingener_frame_svg.cpp) 
 
 target_include_directories(move_moveit PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -45,11 +47,25 @@ ament_target_dependencies(
   "rclcpp"
 )
 
+ament_target_dependencies(
+  eingener_frame
+  "moveit_ros_planning_interface"
+  "rclcpp"
+)
+
+ament_target_dependencies(
+  eingener_frame_svg
+  "moveit_ros_planning_interface"
+  "rclcpp"
+)
+
 install(TARGETS move_moveit
   move_moveit
   haus_des_nikolaus
   move_moveit_anfang
   moveit_paint_svg
+  eingener_frame
+  eingener_frame_svg
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
