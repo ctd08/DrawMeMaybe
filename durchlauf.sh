@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SESSION_ID="§{1:-default_session}"
+
+echo "Session ID: $SESSION_ID"
 
 echo ==== 1. Frontend Build ====
 cd /home/drawmemaybe/drawmemaybe/DrawMeMaybe/frontend
@@ -12,27 +15,5 @@ echo ==== 2. Backend Starten ====
 echo ==== 3. Starting Ollama  ===
 sudo systemctl start ollama
 
-echo ==== 4. Running Agent ====
-export PYTHONPATH="/home/drawmemaybe/drawmemaybe/DrawMeMaybe/backend"
-#python3.12 backend/ai_image/sd_pipeline/run_agent_only.py
-python3.12 -m ai_image.sd_pipeline.run_agent_only
-
-
-echo ==== 5. Stopping Ollama service ====
-sudo systemctl stop ollama
-
-echo ==== 6. Start Gemini ====
-python3.12 backend/ai_image/sd_pipeline/run_gemini_only.py
-
-echo ==== 7. To SVG starten ====
-python3.12 backend/image_to_svg/to_svg.py
-
-#echo ==== 8. Roboter ====
-#cd ~/Drawmemaybe/ros2_ws
-#source ./install/setup.bash
-#ros2 run my_sample_pkg_cpp move_moveit
-
-
-
-
-
+echo "✅ Warten auf User: Text + Bild…"
+# NICHTS automatisch ausführen!

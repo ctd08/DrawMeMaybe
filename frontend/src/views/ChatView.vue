@@ -16,99 +16,73 @@
       </template>
 
       <!-- Chat area -->
-      <!-- Chat area -->
-<template #content>
-  <div class="chat-body">
-    <!-- 1) Scrollable messages -->
-    <div class="chat-scroll">
-      <div
-        v-for="(msg, idx) in messages"
-        :key="idx"
-        class="chat-row"
-        :class="msg.role === 'assistant' ? 'chat-left' : 'chat-right'"
-      >
-        <!-- Assistant left -->
-        <template v-if="msg.role === 'assistant'">
-          <img :src="AI_ICON" alt="Assistant" class="avatar avatar-ai" />
-          <div class="bubble bubble-assistant">
-            <span v-html="msg.content"></span>
+      <template #content>
+        <div class="chat-body">
+          <!-- 1) Scrollable messages -->
+          <div class="chat-scroll">
+            <div
+              v-for="(msg, idx) in messages"
+              :key="idx"
+              class="chat-row"
+              :class="msg.role === 'assistant' ? 'chat-left' : 'chat-right'"
+            >
+              <!-- Assistant left -->
+              <template v-if="msg.role === 'assistant'">
+                <img :src="AI_ICON" alt="Assistant" class="avatar avatar-ai" />
+                <div class="bubble bubble-assistant">
+                  <span v-html="msg.content"></span>
+                </div>
+              </template>
+
+              <!-- User right -->
+              <template v-else>
+                <div class="user-wrapper"></div>
+                <div class="bubble bubble-user">
+                  <span v-html="msg.content"></span>
+                </div>
+                <Avatar icon="pi pi-user" class="avatar-user" />
+              </template>
+            </div>
           </div>
-        </template>
 
-        <!-- User right -->
-        <template v-else>
-          <div class="user-wrapper"></div>
-          <div class="bubble bubble-user">
-            <span v-html="msg.content"></span>
+          <!-- 2) Fixed input row -->
+          <div v-if="!isConfirmed" class="chat-input-row">
+            <InputText
+              v-model="userText"
+              type="text"
+              class="chat-input"
+              placeholder="Tell me about your hobbies or interests…"
+              @keyup.enter="onSend"
+            />
+            <Button
+              type="button"
+              label="Send"
+              icon="pi pi-send"
+              class="send-button"
+              @click="onSend"
+              :disabled="isThinking"
+            />
           </div>
-          <Avatar icon="pi pi-user" class="avatar-user" />
-        </template>
-      </div>
-    </div>
 
-    <!-- 2) Fixed input row (before confirmation) -->
-    <div v-if="!isConfirmed" class="chat-input-row">
-      <InputText
-        v-model="userText"
-        type="text"
-        class="chat-input"
-        placeholder="Tell me about your hobbies or interests…"
-        @keyup.enter="onSend"
-      />
-      <Button
-        type="button"
-        label="Send"
-        icon="pi pi-send"
-        class="send-button"
-        @click="onSend"
-        :disabled="isThinking"
-      />
-    </div>
+          <!-- 3a) Confirmation buttons -->
+          <div v-if="showConfirmation && !isConfirmed" class="confirmation-row">
+            <Button label="Yes ✓" @click="confirmHobbies" severity="success" class="confirm-btn" />
+            <Button label="No ✗" @click="declineHobbies" severity="danger" class="confirm-btn" />
+          </div>
 
-    <!-- 3a) Confirmation buttons (before confirmation) -->
-    <div v-if="showConfirmation && !isConfirmed" class="confirmation-row">
-      <Button label="Yes ✓" @click="confirmHobbies" severity="success" class="confirm-btn" />
-      <Button label="No ✗" @click="declineHobbies" severity="danger" class="confirm-btn" />
-    </div>
+          
 
-    <!-- 3b) Stepper after confirmation -->
-    <!--<div>
-      v-if="isConfirmed"
-      class="stepper"
-      :class="{ 'stepper--done': currentStep === steps.length }"
-    >
-      <div class="stepper-line"></div>
+          <!-- Error -->
+          <div v-if="errorMessage" class="error-text">
+            {{ errorMessage }}
+          </div>
 
-      <div
-        v-for="(step, index) in steps"
-        :key="step.id"
-        class="stepper-step"
-      >
-        <div
-          class="stepper-circle"
-          :class="{
-            'stepper-circle--done': index + 1 < currentStep,
-            'stepper-circle--active': index + 1 === currentStep
-          }"
-        >
-          <span class="stepper-index">{{ index + 1 }}</span>
-        </div>
-        <div class="stepper-label">
-          {{ step.title }}
-        </div>
-      </div>
-    </div> > -->
-
-    <!-- Error -->
-    <div v-if="errorMessage" class="error-text">
-      {{ errorMessage }}
-    </div>
-  </div>
-</template>
-
+        </div> <!-- end chat-body -->
+      </template> <!-- end #content -->
     </Card>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from "vue";
@@ -117,6 +91,7 @@ import Card from "primevue/card";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import Avatar from "primevue/avatar";
+import { onMounted } from 'vue';
 
 const router = useRouter();
 
@@ -345,11 +320,47 @@ async function onSend() {
 
     }
 
+async function generateCaricature() {
+  if (!selectedHobby.value) {
+    errorMessage.value = "No hobby selected yet!";
+    return;
+  }
+
+  isGenerating.value = true;
+  currentStep.value = 3; // Stepper: Creating caricature
+
+  try {
+    const response = await fetch(`${API_BASE}/generate-image`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ session_id: SESSION_ID.value }) // SESSION_ID muss beim Upload gesetzt werden
+    });
+
+    const data = await response.json();
+
+    if (data.ok) {
+      currentStep.value = 4; // Stepper: Drawing caricature
+      messages.value.push({
+        role: "assistant",
+        content: `✅ Caricature generated! You can check it here: <strong>${data.path}</strong>`
+      });
+    } else {
+      errorMessage.value = `Error generating caricature: ${data.error}`;
+    }
+  } catch (err) {
+    console.error(err);
+    errorMessage.value = "Failed to generate caricature. Check console.";
+  } finally {
+    isGenerating.value = false;
+  }
+}
+
+
 async function triggerCaricatureGeneration() {
   isGenerating.value = true;  // ADD: isGenerating ref
   try {
     currentStep.value = 2; //Creating a prompt
-    await fetch('/api/generate-image', { method: 'POST' });
+    await fetch('/run_gemini', { method: 'POST' });
     currentStep.value = 3; //Creating a caricature
     //currentStep.value = 4; //Drawing the caricature
     /*messages.value.push({

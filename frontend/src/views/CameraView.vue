@@ -261,6 +261,7 @@ async function onContinue() {
   const session_id = sessionStorage.getItem("drawmemaybe_session_id");
   const dataUrl = photoDataUrl.value;
   try {
+    //foto hochladen
     const res = await fetch(`${API_BASE}/photo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -271,11 +272,30 @@ async function onContinue() {
       throw new Error(`Upload failed with status ${res.status}`);
     }
 
+    console.log("Photo uploaded successfully");
+
+    //gemini aufrufen
+    const geminiRes = await fetch(`${API_BASE}/generate-image`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ session_id }),
+    });
+
+    const geminiData = await geminiRes.json();
+
+    if (!geminiData.ok) {
+      throw new Error(`Gemini failed: ${geminiData.error}`);
+    }
+
+    console.log("Gemini output path:", geminiData.path);
+
+    
+
     router.push("/chat");
   } catch (err) {
     console.error(err);
     errorMessage.value =
-      "Upload failed. Please check your connection and try again.";
+      "Upload or image generation failed. Please try again.";
   }
 }
 

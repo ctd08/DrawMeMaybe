@@ -119,11 +119,11 @@ class OllamaAgent:
         
         prompt = f"""Extract hobbies from this text. Return ONLY a JSON array.
 
-Text: "{user_text}"
+        Text: "{user_text}"
 
-Return format: ["hobby1", "hobby2", "hobby3"]
+        Return format: ["hobby1", "hobby2", "hobby3"]
 
-Response:"""
+        Response:"""
         
         try:
             #sendet prompt an Ollama/Mistrial
@@ -335,20 +335,20 @@ if __name__ == "__main__":
     import sys
     
     # Create a dummy image for testing
-    #test_image = Image.new('RGB', (512, 512), color='white')
-    test_text = "I love coding and reading, also into animes"
     
-    print("\n🎨 Caricature Agent Test\n")
-    print(f"Input text: {test_text}")
+    #test_text = "I love coding and reading, also into animes"
+    
+    #print("\n🎨 Caricature Agent Test\n")
+    #print(f"Input text: {test_text}")
     #print(f"Image size: {test_image.size}")
     
-    try:
-        result = run_caricature_agent(test_text)
-        print("\n✓ Success!\n")
-        for key, value in result.items():
-            print(f"{key}: {value}")
-    except Exception as e:
-        print(f"\n✗ Error: {e}")
-        print("\nMake sure Ollama is running:")
-        print("  ollama serve")
-        sys.exit(1)
+    #try:
+     #   result = run_caricature_agent(test_text)
+      #  print("\n✓ Success!\n")
+       # for key, value in result.items():
+        #    print(f"{key}: {value}")
+    #except Exception as e:
+     #   print(f"\n✗ Error: {e}")
+      #  print("\nMake sure Ollama is running:")
+       # print("  ollama serve")
+        #sys.exit(1)
