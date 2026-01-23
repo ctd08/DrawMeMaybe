@@ -18,7 +18,7 @@ Eine Kamera nimmt ein Foto einer Person auf, die Person gibt ihre Hobbys oder In
 
 ### **3. Roboterzeichnung**
 
-- ✏️ Das fertige Cartoon-Bild wird in **Vektorpfade (SVG)** konvertiert  
+- ✏️ Das fertige Cartoon-Bild wird in **Vektorpfade (Json)** konvertiert  
 - 🤖 Der **Roboterarm** zeichnet das Portrait mit Stift auf Papier  
 
 ## 👥 Team
