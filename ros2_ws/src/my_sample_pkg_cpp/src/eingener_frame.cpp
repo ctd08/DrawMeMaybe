@@ -1,3 +1,4 @@
+//Ros2
 #include <rclcpp/rclcpp.hpp>
 #include <thread>
 
@@ -22,12 +23,19 @@ static const std::string PLANNING_GROUP = "ur_manipulator";
 // Hilfsfunktion: Cartesian Path mit Geschwindigkeitskontrolle
 // --------------------------------------------------
 bool executeCartesianPath(
+
+//MoveGroup
 moveit::planning_interface::MoveGroupInterface &move_group,
 const std::vector<geometry_msgs::msg::Pose> &waypoints,
-double velocity_scaling = 0.2,
-double acceleration_scaling = 0.2)
+
+double velocity_scaling = 0.2,//Geschwindigkeit
+double acceleration_scaling = 0.2)//Beschleunigung
 {
+
+//Trajectory-Controller für die erste Position initialisieren
 moveit_msgs::msg::RobotTrajectory trajectory;
+
+//Werte für die Punktegenerierung zwischen den Waypoints
 const double eef_step = 0.005;
 const double jump_threshold = 0.0;
 
@@ -92,14 +100,17 @@ drawing_tf.header.stamp = node->now();
 drawing_tf.header.frame_id = "base_link";
 drawing_tf.child_frame_id = "drawing_frame";
 
+//Verschiebung des 0 Punktes des Koordinatensystems
 drawing_tf.transform.translation.x = 0.25;
 drawing_tf.transform.translation.y = -0.25;
 drawing_tf.transform.translation.z = 0.30;
 
+//Orientierung
 tf2::Quaternion q;
 q.setRPY(M_PI, 0, 0);   // Tool senkrecht zur Fläche
 drawing_tf.transform.rotation = tf2::toMsg(q);
 
+//Transformation senden
 tf_broadcaster.sendTransform(drawing_tf);
 rclcpp::sleep_for(std::chrono::milliseconds(300));
 
@@ -184,28 +195,16 @@ approach.push_back(p);
 executeCartesianPath(move_group, approach, 0.2, 0.2);
 
 // --------------------------------------------------
-// ZEICHNUNG (Quadrat)
+// ZEICHNUNG Haus des Nikolauses
 // --------------------------------------------------
 RCLCPP_INFO(LOGGER, "Drawing");
 
+//Pose
 std::vector<geometry_msgs::msg::Pose> drawing;
 geometry_msgs::msg::Pose d = p;
-/*
-d.position.x = 0.00; d.position.y = 0.00;
-drawing.push_back(d);
 
-d.position.x = 0.10;
-drawing.push_back(d);
 
-d.position.y = 0.10;
-drawing.push_back(d);
-
-d.position.x = 0.00;
-drawing.push_back(d);
-
-d.position.y = 0.00;
-drawing.push_back(d);*/
-
+//Absolute Positionierung der Punkte
 // B
 RCLCPP_INFO(LOGGER, "Das");
     d.position.x = 0;
@@ -245,7 +244,7 @@ RCLCPP_INFO(LOGGER, "laus");
     d.position.y = 0.16;
     drawing.push_back(d);
 
-    RCLCPP_INFO(LOGGER, "laus");
+    RCLCPP_INFO(LOGGER, "Start");
 
     // D
     d.position.x = -0.16;
@@ -254,16 +253,6 @@ RCLCPP_INFO(LOGGER, "laus");
 
 
 executeCartesianPath(move_group, drawing, 0.2, 0.2);
-
-// --------------------------------------------------
-// RETREAT
-// --------------------------------------------------
-
-//std::vector<geometry_msgs::msg::Pose> retreat;
-//p.position.z += 0.10;
-//retreat.push_back(p);
-
-//executeCartesianPath(move_group, retreat, 0.3, 0.3);
 
 rclcpp::shutdown();
 return 0;

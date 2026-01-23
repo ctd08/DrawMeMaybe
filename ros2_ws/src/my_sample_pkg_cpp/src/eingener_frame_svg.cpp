@@ -1,4 +1,7 @@
+//Ross2
 #include <rclcpp/rclcpp.hpp>
+
+//Json
 #include <thread>
 #include <fstream>
 #include <nlohmann/json.hpp>
@@ -17,8 +20,10 @@
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 
+//Json
 using json = nlohmann::json;
 
+//Ros2 und MoveGroup deklarieren
 static const rclcpp::Logger LOGGER = rclcpp::get_logger("drawing_node");
 static const std::string PLANNING_GROUP = "ur_manipulator";
 
@@ -28,11 +33,16 @@ static const std::string PLANNING_GROUP = "ur_manipulator";
 bool executeCartesianPath(
 moveit::planning_interface::MoveGroupInterface &move_group,
 const std::vector<geometry_msgs::msg::Pose> &waypoints,
-double velocity_scaling = 0.2,
-double acceleration_scaling = 0.2)
+
+double velocity_scaling = 0.2,//Geschwindigkeit
+double acceleration_scaling = 0.2)//Beschleunigung
 {
+
+//Trajectory-Controller für die erste Position initialisieren
 moveit_msgs::msg::RobotTrajectory trajectory;
-const double eef_step = 0.005;
+
+//Werte für die Punktegenerierung zwischen den Waypoints
+const double eef_step = 0.001;
 const double jump_threshold = 0.0;
 
 double fraction = move_group.computeCartesianPath(
@@ -68,8 +78,9 @@ return true;
 // --------------------------------------------------
 int main(int argc, char ** argv)
 {
-rclcpp::init(argc, argv);
+rclcpp::init(argc, argv); //Ros2 initialisieren
 
+//Nodeoptions festlegen
 rclcpp::NodeOptions node_options;
 node_options.automatically_declare_parameters_from_overrides(true);
 
@@ -96,14 +107,17 @@ drawing_tf.header.stamp = node->now();
 drawing_tf.header.frame_id = "base_link";
 drawing_tf.child_frame_id = "drawing_frame";
 
+//Verschiebung des 0 Punktes des Koordinatensystems
 drawing_tf.transform.translation.x = 0.25;
 drawing_tf.transform.translation.y = -0.25;
 drawing_tf.transform.translation.z = 0.30;
 
+//Orientierung
 tf2::Quaternion q;
 q.setRPY(M_PI, 0, 0);   // Tool senkrecht zur Fläche
 drawing_tf.transform.rotation = tf2::toMsg(q);
 
+//Transformation senden
 tf_broadcaster.sendTransform(drawing_tf);
 rclcpp::sleep_for(std::chrono::milliseconds(300));
 
@@ -149,6 +163,7 @@ ori_constraint.weight = 1.0;
 moveit_msgs::msg::Constraints path_constraints;
 path_constraints.orientation_constraints.push_back(ori_constraint);
 
+//Constraint setzen
 move_group.setPathConstraints(path_constraints);
 
 move_group.setJointValueTarget(home);
@@ -199,7 +214,7 @@ json data;
 file >> data;
 
 // --------------------------------------------------
-// ZEICHNUNG (Quadrat)
+// Carikatur zeichnen
 // --------------------------------------------------
 RCLCPP_INFO(LOGGER, "Drawing");
 bool first = true;
@@ -207,14 +222,14 @@ bool first = true;
 std::vector<geometry_msgs::msg::Pose> drawing;
 geometry_msgs::msg::Pose d = p;
 
-for (const auto& path : data["paths"]) {
+for (const auto& path : data["paths"]) {//Pade bzw. Linein auslesen
     std::vector<std::pair<double, double>> coordinates;
     first = true;
     
-    for (const auto& point : path) {
+    for (const auto& point : path) {//Waypoints für jede Line in das Array einfügen
         d.position.x =  -(double)point[0]; // Invertiere X-Achse und offset
         d.position.y = (double)point[1]; // Invertiere Y-Achse und offset
-/*
+        /*
         if(first_point){
             RCLCPP_INFO(LOGGER, "Position: x=%.3f, y=%.3f, z=%.3f", target.position.x, 
                 target.position.y, target.position.z);
@@ -225,79 +240,17 @@ for (const auto& path : data["paths"]) {
 
         drawing.push_back(d);
 
-        if (first){
+        if (first){//beim ersten Punkt Stift auf Papier setzen
             d.position.z = 0;
             first = false;
             
             drawing.push_back(d);
         }
     }
-    //paths.push_back(coordinates);
+    //Stift nach der Line wieder abheben
     d.position.z = 0.02;
     drawing.push_back(d);
 }
-/*
-d.position.x = 0.00; d.position.y = 0.00;
-drawing.push_back(d);
-
-d.position.x = 0.10;
-drawing.push_back(d);
-
-d.position.y = 0.10;
-drawing.push_back(d);
-
-d.position.x = 0.00;
-drawing.push_back(d);
-
-d.position.y = 0.00;
-drawing.push_back(d);
-
-// B
-RCLCPP_INFO(LOGGER, "Das");
-    d.position.x = 0;
-    d.position.y = 0.16;
-    drawing.push_back(d);
-RCLCPP_INFO(LOGGER, "Haus");
-    // D
-    d.position.x = -0.16;
-    d.position.y = 0.16;
-    drawing.push_back(d);
-RCLCPP_INFO(LOGGER, "das");
-    // A
-    d.position.x = 0;
-    d.position.y = 0;
-    drawing.push_back(d);
-RCLCPP_INFO(LOGGER, "Ni-");
-    // E
-    d.position.x = -0.16;
-    d.position.y = 0;
-    drawing.push_back(d);
-RCLCPP_INFO(LOGGER, "ko");
-    // B
-    d.position.x = 0;
-    d.position.y = 0.16;
-    drawing.push_back(d);
-RCLCPP_INFO(LOGGER, "laus");
-
-    // D
-    d.position.x = -0.08;
-    d.position.y = 0.24;
-    drawing.push_back(d);
-
-    RCLCPP_INFO(LOGGER, "laus");
-
-    // D
-    d.position.x = -0.16;
-    d.position.y = 0.16;
-    drawing.push_back(d);
-
-    RCLCPP_INFO(LOGGER, "laus");
-
-    // D
-    d.position.x = -0.16;
-    d.position.y = 0;
-    drawing.push_back(d);*/
-
 
 executeCartesianPath(move_group, drawing, 0.2, 0.2);
 
