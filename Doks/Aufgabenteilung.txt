@@ -1,6 +1,7 @@
 In diesem Dokument werden die gemachten Aufgaben der jeweiligen Teammitglieder aufgelistet
 
 Muhammet Keser:
+- Teil der Projektmanagement
 - Ausprobieren der Interfaces für die Karrikaturerstellung
 - richtigen Filder für die Karikaur herraussuchen
 	-> auf notwendige Linien der Karikatur reduzieren
@@ -13,6 +14,7 @@ Muhammet Keser:
 - Halterung für die Parücke
 
 Stephan Reckziegel:
+-Teil der Projektmanagement
 - Grundinstallation des Webservers
 	-> Http und Https-Konfiguration
 	-> Grundkonfiguration musst von http auf https erweitert werden, da der Kamerazugriff dies erfordert
@@ -26,13 +28,21 @@ Stephan Reckziegel:
 	-> Erstellung der Node mit eingenen Tempurären Frame für des Endefektors
 	-> Erstellung der Node für mit tempurären Frame des Endefektors und dem Auslesen der json-Datei
 - Konzept von dem Gestell der Leinwand
-	-> Desing in dem Item-Konigurator
+	-> Design in dem Item-Konigurator
 - Shellscript für den externen Start der Roboterverbindung(start_robot.sh)
 
 Cristina Tutunariu:
-- Ausprobieren der Interfaces für die Karrikaturerstellung
+- Teil der Projektmanagement
+- Ausprobieren der Interfaces für die Karrikaturerstellung 
 - Designen des Plakates und Flyer
 - Programmierung des Frontends
+	-> angefangen in Python Streamlit
+	-> Migration der Frontend in Vue.js
+	-> FastAPI implementiert
 - Programmierung des Backends
+	-> Datenbank zur Speicherung der Sessions und Consent
+	-> Prompt-Erstellung mit Ollama 
+	-> Google Gemini (Nano Banana) implementiert
 - Erweiterte Konfiguration des Apache2-Webservers
 	-> Konfigurationsdateien von HTTPS so erweitert, dass das Frontend funktioniert
+	-> Backend-Server auf HTTP gesetzt 
