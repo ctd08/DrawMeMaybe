@@ -2,7 +2,6 @@ import cv2 as cv2
 import numpy as np
 import json
 
-import json
 
 def contours_to_json(contours, filename="paths.json", scale=0.001):
     paths = []
@@ -10,8 +9,8 @@ def contours_to_json(contours, filename="paths.json", scale=0.001):
     for cnt in contours:
         line = []
         for p in cnt:
-            x = round(float(p[0][0]) * scale, 2)
-            y = round(float(p[0][1]) * scale, 2)
+            x = round(float(p[0][0]) * scale, 4)
+            y = round(float(p[0][1]) * scale, 4)
             line.append([x, y])
         paths.append(line)
 
