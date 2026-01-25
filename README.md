@@ -16,14 +16,18 @@ Systemübersicht
 
 Geplante Pipeline:
 
-Aufnahme eines Bildes mit einer Kamera
+1. Akzeptieren der Einverständniserklärung zur Datenverarbeitung mit KI 
 
-(Optional) Generierung oder Stilisierung einer Karikatur mit einem KI-Modell
+2. Aufnahme eines Bildes mit einer Kamera
 
-Extraktion von Kanten und Umrissen
+3. Eingabe eines Hobbys/Interesse der Person
 
-Umwandlung der Umrisse in Pfade und Wegpunkte
+4. Generierung einer stilisierten Karikatur mit einem KI-Modell
 
-Übergabe der Wegpunkte an MoveIt zur Bewegungsplanung
+5. Extraktion von Kanten und Umrissen
 
-Zeichnen der Pfade durch den Roboterarm
+6. Umwandlung der Umrisse in Pfade und Wegpunkte
+
+7. Übergabe der Wegpunkte an MoveIt zur Bewegungsplanung
+
+8. Zeichnen der Pfade durch den Roboterarm
